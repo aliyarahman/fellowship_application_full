@@ -1,0 +1,23 @@
+venv
+
+### Mac OS X ###
+.DS_Store
+
+### Vagrant ###
+.vagrant/
+
+## Python ## 
+*.pyc
+pip-log.txt
+ENV/*
+
+## Django ##
+build/*
+
+## VIM ##
+*.swp
+
+## Settings Configurations ##
+fellowship_application/settings.py
+fellowship_application/settings_hidden.py
+
