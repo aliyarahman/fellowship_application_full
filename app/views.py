@@ -157,7 +157,9 @@ def tech(request):
         if form.is_valid():
             user = User.objects.get(id = request.user.id)
             applicant = user.applicant
-            applicant.primaryhomelanguage = form.cleaned_data.get('primaryhomelanguage')
+            applicant.tech1 = form.clean.get('tech1')
+            applicant.tech2 = form.clean.get('tech2')
+            applicant.tech3 = form.clean.get('tech3')
             applicant.save()
             return HttpResponseRedirect(reverse('shortanswers'))
     else:
@@ -171,7 +173,7 @@ def tech(request):
 @login_required
 def shortanswers(request):
     if request.method == 'POST':
-        form = EssayForm(request.POST)
+        form = ShortAnswersForm(request.POST)
         if form.is_valid():
             user = User.objects.get(id = request.user.id)
             applicant = user.applicant
@@ -183,14 +185,14 @@ def shortanswers(request):
             applicant.shortanswer6 = form.cleaned_data.get('shortanswer6')
             applicant.shortanswer7 = form.cleaned_data.get('shortanswer7')
             applicant.shortanswer8 = form.cleaned_data.get('shortanswer8')
-            applicant.anythingelse = form.cleaned_data.get('anythingelse')
+            applicant.anything_else = form.cleaned_data.get('anythingelse')
             applicant.save()
             return HttpResponseRedirect(reverse('recommenders'))
     else:
         user = User.objects.get(id = request.user.id)
         applicant = user.applicant
         essayinfo = model_to_dict(applicant)
-        form = EssayForm(initial=essayinfo)
+        form = ShortAnswersForm(initial=essayinfo)
     return render(request, 'shortanswers.html', {'form':form})
 
 

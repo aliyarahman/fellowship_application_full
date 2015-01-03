@@ -56,32 +56,20 @@ class ProfileForm(Form):
 class TechForm(Form):
     tech1 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
     tech2 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
 #    ab540 = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
 
-class ScholarshipForm(Form):
-    awardcycle = CharField(required=True)
-    plannedcollegename =CharField(required=True)
-    plannedcollegecity = CharField(required=True)
-    plannedcollegestate = CharField(required=True)
-    plannedcollegetype = ChoiceField(choices=(('','Select...'),('1', 'Community College'),('2', 'Four-year College'),('3', 'Graduate School'), ('4', 'Professional/Technical')))
-    plannedcommunitycollegelevel = ChoiceField(choices=(('','Select...'),('1', 'Freshman'),('2', 'Sophomore'),('3', '3rd year or more')))
-    plannedtraditionalcollegelevel = ChoiceField(choices=(('','Select...'),('1', 'Freshman'),('2', 'Sophomore'),('3', 'Junior'),('4','Senior'),('5','Graduating Senior')))
-    plannedmajor = CharField(required=True)
-    receivingyear = CharField(required=False)
 
-
-class DocumentsForm(Form):
-    cv_or_resume = FileField(required=False)
-    student_mailing_resume = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
-    student_emailing_resume = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
-    transcript = FileField(required=False)
-    student_mailing_transcript = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
-    student_emailing_transcript = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
-    college_sending_transcript = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
-
-class EssayForm(Form):
-    essaytext1 = CharField(widget=Textarea(), required=False)
-    essaytext2 = CharField(widget=Textarea(), required=False)
+class ShortAnswerForm(Form):
+    shortanswer1 = CharField(widget=Textarea(), required=False)
+    shortanswer2 = CharField(widget=Textarea(), required=False)
+    shortanswer3 = CharField(widget=Textarea(), required=False)
+    shortanswer4 = CharField(widget=Textarea(), required=False)
+    shortanswer5 = CharField(widget=Textarea(), required=False)
+    shortanswer6 = CharField(widget=Textarea(), required=False)
+    shortanswer7 = CharField(widget=Textarea(), required=False)
+    shortanswer8 = CharField(widget=Textarea(), required=False)
+    anything_else = CharField(widget=Textarea(), required=False)
 
 
 class RecommendersForm(Form):
@@ -95,6 +83,7 @@ class RecommendersForm(Form):
     ref2email = CharField(required=True)
     ref2title = CharField(required=True)
     ref2organization = CharField(required=True) 
+
 
 class RecommendationForm(Form):
     known_applicant = CharField(required=True)
