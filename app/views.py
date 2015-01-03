@@ -46,7 +46,7 @@ def forgot_password(request):
                 user.save()
                 message_text = "Your Code for Progress application portal password has been reset. Please go to http://apply.codeforprogress.org and use the following information to log in. You can change your password once you've successfully logged in using your temporary password.\n\n\tUsername: "+email+"\n\tPassword: "+new_password+"\n\nThe Code for Progress team"
                 send_mail('Your temporary password', message_text, 'Code for Progress', [email], fail_silently=False)
-                return HttpResponseRedirect(reverse('forgot_password_confirmation'))
+            return HttpResponseRedirect(reverse('forgot_password_confirmation'))
     else:
         form = ForgotPasswordForm()
     return render(request, 'forgot_password.html', {'form':form})
