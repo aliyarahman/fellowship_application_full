@@ -60,7 +60,7 @@ class TechForm(Form):
 #    ab540 = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
 
 
-class ShortAnswerForm(Form):
+class ShortAnswersForm(Form):
     shortanswer1 = CharField(widget=Textarea(), required=False)
     shortanswer2 = CharField(widget=Textarea(), required=False)
     shortanswer3 = CharField(widget=Textarea(), required=False)
@@ -91,7 +91,7 @@ class RecommendationForm(Form):
     problem_solving = CharField(required=True)
     obstacles_rating = ChoiceField(widget=RadioSelect, choices=(('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     obstacles = CharField(required=True)
-    communit_rating = ChoiceField(widget=RadioSelect, choices=(('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
+    community_rating = ChoiceField(widget=RadioSelect, choices=(('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     community = CharField(required=True)
     accomodations_rating = ChoiceField(widget=RadioSelect, choices=(('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     accomodations = CharField(required=True)
@@ -122,3 +122,7 @@ class ForgotPasswordForm(Form):
 class ResetPasswordForm(Form):
     password = CharField(widget=PasswordInput(), required=True)
     password_confirmation = CharField(widget=PasswordInput(), required=True)
+
+
+class AssignEvaluatorForm(Form):
+    evaluator_email = EmailField(required=True)
