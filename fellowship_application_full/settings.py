@@ -83,7 +83,7 @@ USE_TZ = True
 
 STATIC_ROOT = '' # This is where you want the collectstatic app to put all of the files for deployment, when it pulls from multiple DIRS
 STATIC_URL = '/static/' #This is the part that comes before what you are using in {% static %} tags to reference files
-STATIC_DIRS = 'app/static/app/' #These are where the files are actually stored
+STATIC_DIRS = 'app/static/' #These are where the files are actually stored
 
 
 TEMPLATE_DIRS = (
