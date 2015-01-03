@@ -90,8 +90,6 @@ TEMPLATE_DIRS = (
     'app/templates/app/',
 )
 
-MEDIA_ROOT = '' 
-MEDIA_URL = '/media/'
 
 LOGIN_URL = 'django.contrib.auth.views.login'
 LOGIN_REDIRECT_URL = 'index'

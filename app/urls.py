@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, url, include
 from app import views
 
-
 urlpatterns = patterns('',
     url(r'^$', 'django.contrib.auth.views.login'),
     url(r'^login/$', 'django.contrib.auth.views.login'),

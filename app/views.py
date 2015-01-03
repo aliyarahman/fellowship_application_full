@@ -243,7 +243,7 @@ def add_recommender(email, first_name, last_name, relationship, applicant):
         recommender = User(username = email, first_name = first_name, last_name = last_name, email = email, password = generate_password())
         recommender.save()
     r = Recommender(user = recommender, role=2, relationship=relationship)
-        r.save()
+    r.save()
     r.applicants.add(applicant)
     recommendation = Recommendation(applicant = applicant, recommender = r)
     recommendation.save()
@@ -301,7 +301,7 @@ def recommend(request, recommendation_id):#pass in the student this is for
     else:
         recommendationinfo = model_to_dict(recommendation)
         form = RecommenderForm(initial=recommendationinfo)
-    return render(request, 'recommendation.html', 'form':form})
+    return render(request, 'recommendation.html', {'form':form})
 
 
 
