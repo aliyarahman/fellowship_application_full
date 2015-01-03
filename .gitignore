@@ -18,6 +18,4 @@ build/*
 *.swp
 
 ## Settings Configurations ##
-fellowship_application/settings.py
-fellowship_application/settings_hidden.py
-
+fellowship_application_full/settings_hidden.py
