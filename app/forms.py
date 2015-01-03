@@ -34,24 +34,6 @@ class ProfileForm(Form):
     pastapplicant = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=True)
     referral = CharField(required=False, widget=forms.Textarea)
     
-    def validate_password(self, field):
-        user = self.get_user()
-
-        if not user and self.password.data == '':
-            raise ValidationError("Please enter a password")
-
-        # hack to prevent overwrite of password with blank on profile update
-        if user and (self.password.data == '' or self.password.data == None):
-            self.password.data = user.password
-            self.retypepassword.data = user.password
-
-        if self.password.data != self.retypepassword.data:
-            raise ValidationError("Your passwords don't match - try retyping them.")
-
-        if len(self.password.data) < 8:
-            raise ValidationError("Your password is a little short - pick one that's at least 8 characters long.")
-
-
 
 class TechForm(Form):
     tech1 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))

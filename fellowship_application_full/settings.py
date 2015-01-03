@@ -95,3 +95,9 @@ LOGIN_URL = 'django.contrib.auth.views.login'
 LOGIN_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = 'auth.User'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'aliya@codeforprogress.org'
+EMAIL_HOST_PASSWORD = hidden_email_password
