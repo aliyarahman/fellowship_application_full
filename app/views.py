@@ -46,7 +46,6 @@ def forgot_password(request):
                 user.save()
                 message_text = "Your Code for Progress application portal password has been reset. Please go to http://apply.codeforprogress.org and use the following information to log in. You can change your password once you've successfully logged in using your temporary password.\n\n\tUsername: "+email+"\n\tPassword: "+new_password+"\n\nThe Code for Progress team"
                 send_mail('Your temporary password', message_text, 'Code for Progress', [email], fail_silently=False)
-
                 return HttpResponseRedirect(reverse('forgot_password_confirmation'))
     else:
         form = ForgotPasswordForm()
@@ -63,17 +62,18 @@ def generate_password():
 
 
 @login_required
-def reset_password(request, user_id):
-    user = User.objects.get(id = user_id)
+def reset_password(request):
+    user = User.objects.get(id = request.user.id)
     if request.method == "POST":
         form = ResetPasswordForm(data=request.POST)
         if form.is_valid():
             new_password = form.cleaned_data.get('password')
             user.set_password(new_password)
             user.save()
+            return HttpResponseRedirect(reverse('index'))
     else:
         form = ResetPasswordForm()
-    return render(request, 'reset_password.html', {'user':user, 'form':form})
+    return render(request, 'reset_password.html', {'form':form})
 
 
 def faq(request):
@@ -84,7 +84,7 @@ def faq(request):
 def index(request):
     try:
         if request.user.applicant:
-            return HttpResponseRedirect(reverse('createprofile'))
+            return HttpResponseRedirect(reverse('profile'))
     except:
         pass
     try:
