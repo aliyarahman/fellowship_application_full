@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div><!-- Form Start-->
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+
+<h1 class="nopadding">Tell us how you use technology.</h1>
+<hr class="form">
+    
+    <p>We'd like to know a little bit about how you're thinking about the role of this program in your personal, work, and community life. </p>
+
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">1. Shortanswer 1</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer1 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">2. Shortanswer 2</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer2 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">3. Shortanswer 3</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer3 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">4. Shortanswer 4</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer4 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">5. Shortanswer 5</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer4 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">6. Shortanswer 6</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer2 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">7. Shortanswer 7</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer7 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">8. Shortanswer 8</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.shortanswer8 class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-6 left">9. Anything else?</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.anything_else class+="form-control" %}
+          </div>
+        </div><!-- E -->
+        <div class="form-group"><!-- S XXX-->
+            <br>
+          <div class="col-xs-10">
+          <button id="next" type="submit" class="btn btn-form pull-right">Save these answers &gt; &gt;</button>
+          </div><br><br><br>
+        </div><!-- E -->
+   
+    
+</form><!-- Form End-->
+</div><!-- Form End-->
+
+
+{% endblock %}

@@ -28,7 +28,6 @@ def login_view(request):
         return render(request, 'login.html', {'form': form})
 
 
-@login_required
 def logout_view(request):
     logout(request)
     return render(request, 'logged_out.html')
@@ -84,7 +83,7 @@ def faq(request):
 def index(request):
     try:
         if request.user.applicant:
-            return HttpResponseRedirect(reverse('profile'))
+            return HttpResponseRedirect(reverse('createaccount'))
     except:
         pass
     try:
@@ -118,8 +117,8 @@ def createaccount(request):
             password = form.cleaned_data.get('password')
             email = username
             user = User.objects.create_user(username, email, password)
-            user.first_name = form.cleaned_data.get('first_names')
-            user.last_name = form.cleaned_data.get('last_names')
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
             user.save()
             applicant = Applicant(user = user, role = 1)
             applicant.save()
@@ -137,8 +136,8 @@ def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            user.first_name = form.cleaned_data.get('first_names')
-            user.last_name = form.cleaned_data.get('last_names')
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
             user.email = form.cleaned_data.get('email')
             user.save()
             applicant.city = form.cleaned_data.get('city')
@@ -149,6 +148,7 @@ def profile(request):
             applicant.dob = form.cleaned_data.get('dob')
             applicant.pastapplicant = form.cleaned_data.get('pastapplicant')
             applicant.referral = form.cleaned_data.get('referral')
+            applicant.save()
             return HttpResponseRedirect(reverse('tech'))
     else:
         userinfo = model_to_dict(user)
@@ -165,9 +165,9 @@ def tech(request):
         if form.is_valid():
             user = User.objects.get(id = request.user.id)
             applicant = user.applicant
-            applicant.tech1 = form.clean.get('tech1')
-            applicant.tech2 = form.clean.get('tech2')
-            applicant.tech3 = form.clean.get('tech3')
+            applicant.tech1 = form.cleaned_data.get('tech1')
+            applicant.tech2 = form.cleaned_data.get('tech2')
+            applicant.tech3 = form.cleaned_data.get('tech3')
             applicant.save()
             return HttpResponseRedirect(reverse('shortanswers'))
     else:
@@ -193,7 +193,7 @@ def shortanswers(request):
             applicant.shortanswer6 = form.cleaned_data.get('shortanswer6')
             applicant.shortanswer7 = form.cleaned_data.get('shortanswer7')
             applicant.shortanswer8 = form.cleaned_data.get('shortanswer8')
-            applicant.anything_else = form.cleaned_data.get('anythingelse')
+            applicant.anything_else = form.cleaned_data.get('anything_else')
             applicant.save()
             return HttpResponseRedirect(reverse('recommenders'))
     else:
@@ -211,18 +211,18 @@ def recommenders(request):
         if form.is_valid():
             user = User.objects.get(id = request.user.id)
             applicant = user.applicant
-            applicant.ref1firstname = form.cleaned_data.get('ref1firstname')
-            applicant.ref1lastname = form.cleaned_data.get('ref1lastname')
-            applicant.ref1email = form.cleaned_data.get('ref1email')
-            applicant.ref1relationship = form.cleaned_data.get('ref1relationship')
-            applicant.ref2firstname = form.cleaned_data.get('ref2firstname')
-            applicant.ref2lastname = form.cleaned_data.get('ref2lastname')
-            applicant.ref2email = form.cleaned_data.get('ref2email')
-            applicant.ref2relationship = form.cleaned_data.get('ref2relationship')
-            applicant.ref3firstname = form.cleaned_data.get('ref3firstname')
-            applicant.ref3lastname = form.cleaned_data.get('ref3lastname')
-            applicant.ref3email = form.cleaned_data.get('ref3email')
-            applicant.ref3relationship = form.cleaned_data.get('ref3relationship')
+            applicant.rec1firstname = form.cleaned_data.get('rec1firstname')
+            applicant.rec1lastname = form.cleaned_data.get('rec1lastname')
+            applicant.rec1email = form.cleaned_data.get('rec1email')
+            applicant.rec1relationship = form.cleaned_data.get('rec1relationship')
+            applicant.rec2firstname = form.cleaned_data.get('rec2firstname')
+            applicant.rec2lastname = form.cleaned_data.get('rec2lastname')
+            applicant.rec2email = form.cleaned_data.get('rec2email')
+            applicant.rec2relationship = form.cleaned_data.get('rec2relationship')
+            applicant.rec3firstname = form.cleaned_data.get('rec3firstname')
+            applicant.rec3lastname = form.cleaned_data.get('rec3lastname')
+            applicant.rec3email = form.cleaned_data.get('rec3email')
+            applicant.rec3relationship = form.cleaned_data.get('rec3relationship')
             applicant.save()
             return HttpResponseRedirect(reverse('finalsubmission'))
     else:

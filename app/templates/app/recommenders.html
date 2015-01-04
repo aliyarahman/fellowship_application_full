@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div><!-- Form Start-->
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+
+<h1 class="nopadding">Tell us who we can ask for a recommendation.</h1>
+<hr class="form">
+
+  <p>We'd like to hear from three people who know you – either at home, at work, or in your community. Try to pick people who know you in different parts of your life, and who know about your passions and your skills. You'll also need to check with them first to see if they are willing to answer some questions about you, and if they can do that before _____, 2015.<b> When you pick your recommenders, please choose people who are not also applying to the Code for Progress program as students.</b></p>
+
+  <p>As soon as you submit your whole application, we'll send your recommenders some questions about you that they can answer online. If you pick someone who does not use email, please send a separate email with their phone number to <b>applications@codeforprogress.org</b> so that we can get in touch with them.</p>
+  
+  <p>After that, you'll just need to check with your recommenders to make sure they give us their answers before ______. That means you should turn in your application early - so your recommenders will have time to do their part. After you submit your application, you'll also be able see which recommenders have finished their applications when you log back into this application. <b>Our selection committee will not consider applications that don't have three recommendations submitted, so it is very important that you check back with the people you've picked!</b></p>
+
+
+    <br><br>
+    <h3>Recommender 1</h3>
+    <hr class="form">
+    <br>
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">First/given names</label>
+          <div class="col-xs-2">
+          {% render_field form.rec1firstname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">Last/family names</label>
+          <div class="col-xs-2">
+          {% render_field form.rec1lastname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">Email</label>
+          <div class="col-xs-2">
+          {% render_field form.rec1email class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-xs-2">
+          {% render_field form.rec1relationship class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+
+    <br><br>
+    <h3>Recommender 2</h3>
+    <hr class="form">
+    <br>
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">First/given names</label>
+          <div class="col-xs-2">
+          {% render_field form.rec2firstname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">Last/family names</label>
+          <div class="col-xs-2">
+          {% render_field form.rec2lastname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">Email</label>
+          <div class="col-xs-2">
+          {% render_field form.rec2email class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-xs-2">
+          {% render_field form.rec2relationship class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+
+
+    <br><br>
+    <h3>Recommender 3</h3>
+    <hr class="form">
+    <br>
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">First/given names</label>
+          <div class="col-xs-2">
+          {% render_field form.rec3firstname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">Last/family names</label>
+          <div class="col-xs-2">
+          {% render_field form.rec3lastname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">Email</label>
+          <div class="col-xs-2">
+          {% render_field form.rec3email class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-sm-6 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-xs-2">
+          {% render_field form.rec3relationship class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+
+        <div class="form-group"><!-- S XXX-->
+            <br>
+          <div class="col-xs-8">
+          <button id="next" type="submit" class="btn btn-form pull-right">Save these answers &gt; &gt;</button>
+          </div><br><br><br>
+        </div><!-- E -->
+   
+    
+</form><!-- Form End-->
+</div><!-- Form End-->
+
+
+{% endblock %}

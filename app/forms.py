@@ -14,24 +14,28 @@ def unique_user(form, field):
 
 
 class CreateAccountForm(Form):
-    first_names = CharField(required=True)
-    last_names = CharField(required=True)
+    first_name = CharField(required=True)
+    last_name = CharField(required=True)
     email = CharField(required=True)
     password = CharField(widget=PasswordInput(), required=True)
     retype_password = CharField(widget=PasswordInput(), required=True)
 
 
 class ProfileForm(Form):
-    first_names = CharField(required=True)
-    last_names = CharField(required=True)    
+    first_name = CharField(required=True)
+    last_name = CharField(required=True)    
     email = CharField(required=True)
     city = CharField(required=True)
     state = CharField(required=True)
     country = ChoiceField(required=False, choices=countries)
-    zipcode = IntegerField(required=True)
+    zipcode = CharField(required=True)
     phone = CharField(required=True)
     dob = CharField(required=True)
-    pastapplicant = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=True)
+    languages = CharField(required=False, widget=forms.Textarea)
+    communities = CharField(required=False, widget=forms.Textarea)
+    working_now = CharField(required=False, widget=forms.Textarea)
+    school_now = CharField(required=False, widget=forms.Textarea)
+    past_applicant = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=True)
     referral = CharField(required=False, widget=forms.Textarea)
     
 
@@ -55,16 +59,18 @@ class ShortAnswersForm(Form):
 
 
 class RecommendersForm(Form):
-    ref1firstname = CharField(required=True)
-    ref1lastname = CharField(required=True)
-    ref1email = CharField(required=True)
-    ref1title = CharField(required=True)
-    ref1organization = CharField(required=True) 
-    ref2firstname = CharField(required=True)
-    ref2lastname = CharField(required=True)
-    ref2email = CharField(required=True)
-    ref2title = CharField(required=True)
-    ref2organization = CharField(required=True) 
+    rec1firstname = CharField(required=True)
+    rec1lastname = CharField(required=True)
+    rec1email = CharField(required=True)
+    rec1relationship = CharField(required=True)
+    rec2firstname = CharField(required=True)
+    rec2lastname = CharField(required=True)
+    rec2email = CharField(required=True)
+    rec2relationship = CharField(required=True)
+    rec3firstname = CharField(required=True)
+    rec3lastname = CharField(required=True)
+    rec3email = CharField(required=True)
+    rec3relationship = CharField(required=True)
 
 
 class RecommendationForm(Form):

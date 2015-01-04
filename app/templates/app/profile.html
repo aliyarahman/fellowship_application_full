@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div class="ch-container"><!-- Form Start-->
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+
+<h1 class="nopadding">Tell us about yourself.</h1>
+<hr class="form">
+
+
+
+    <div class="form-group"><!-- S -->
+      <label class="col-sm-2 control-label left">First/given names</label>
+      <div class="col-xs-4">
+      {% render_field form.first_name class+="form-control" %}
+      </div>
+    </div><!-- E -->
+    
+    <div class="form-group"><!-- S -->
+      <label class="col-sm-2 control-label left">Last/family names</label>
+      <div class="col-xs-4">
+      {% render_field form.last_name class+="form-control" %}
+      </div>
+    </div><!-- E -->
+
+     <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Current city</label>
+      <div class="col-xs-4">
+      {% render_field form.city class+="form-control" %}
+      </div>
+    </div><!-- E -->  
+    
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Current state</label>
+      <div class="col-xs-4">
+      {% render_field form.state class+="form-control" %}
+      </div>
+    </div><!-- E --> 
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Current country</label>
+      <div class="col-xs-4">
+      {% render_field form.country class+="form-control" %}
+      </div>
+    </div><!-- E -->
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Zip</label>
+      <div class="col-xs-4">
+      {% render_field form.zipcode class+="form-control" %}
+      </div>
+    </div><!-- E --> 
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Phone</label>
+      <div class="col-xs-4">
+      {% render_field form.phone class+="form-control" %}
+      </div>
+    </div><!-- E --> 
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Date of Birth</label>
+      <div class="col-xs-4">
+      {% render_field form.dob class+="form-control" placeholder="mm/dd/yyyy" %}
+      </div>
+    </div><!-- E -->
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Code for Progress focuses on training coders from communities historically excluded from the tech industry. Do you identify as part of any of these communities, and if so what are they?</label>
+      <div class="col-xs-4">
+      {% render_field form.communities class+="form-control" %}
+      </div>
+    </div><!-- E -->
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">What languages do you speak, and how well do you speak them?</label>
+      <div class="col-xs-4">
+      {% render_field form.languages class+="form-control" %}
+      </div>
+    </div><!-- E -->
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.</label>
+      <div class="col-xs-4">
+      {% render_field form.working_now class+="form-control" %}
+      </div>
+    </div><!-- E -->
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Are you in a trade school, college, or university program right now, or have you been in one in the past? If so, what certificate or degree did/will you receive, and will you still be in the program in June of 2015 year?</label>
+      <div class="col-xs-4">
+      {% render_field form.school_now class+="form-control" %}
+      </div>
+    </div><!-- E -->  
+
+    <div class="form-group"><!-- S XXX-->
+      <label class="col-sm-2 control-label left">Have you applied to the Code for Progress fellowship before?</label>
+      <div class="col-xs-4">
+      {% render_field form.past_applicant class+="form-control" %}
+      </div>
+    </div>
+
+    <div class="form-group"><!-- S XXX-->
+      <div class="col-sm-2">
+      <label class="control-label left">How did you learn about the fellowship?</label>
+      </div>
+      <div class="col-xs-4">
+      {% render_field form.referral class+="form-control" %}
+      </div>
+    </div><!-- E -->
+
+
+    <h2 class="nopadding">Login information</h2>
+    <hr class="form">
+    <div class="form-group"><!-- S -->
+      <label for="email" class="col-sm-2 control-label left">Email</label>
+      <div class="col-xs-4">
+      {% render_field form.email class+="form-control" %}
+      </div>
+    </div><!-- E -->
+    <div class="form-group"><!-- S -->
+      <label for="password" class="col-sm-2 control-label left">Password</label>
+      <div class="col-xs-4">
+        <button onClick="location.href='{% url 'reset_password' %}'" class="btn">Change password</button>
+      </div>
+    </div><!-- E -->
+
+
+
+
+     <div class="form-group"><!-- S XXX-->
+        <br>
+      <div class="col-xs-6">
+      <button id="next" type="submit" class="btn btn-form pull-right">Save these answers &gt; &gt;</button>
+      </div><br><br><br>
+    </div><!-- E -->
+   
+    
+</form><!-- Form End-->
+</div><!-- Form End-->
+
+
+{% endblock %}
