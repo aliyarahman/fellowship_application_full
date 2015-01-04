@@ -44,12 +44,13 @@
       </div>
     </div><!-- E -->
 
-     <div class="form-group"><!-- S XXX-->
-        <br>
-      <div class="col-xs-6">
-      <button id="next" type="submit" class="btn btn-form pull-right">Create my account &gt; &gt;</button>
-      </div><br><br><br>
-    </div><!-- E -->
+        <div class="form-group"><!-- S XXX-->
+            <br>
+          <div class="col-xs-12 text-right">
+            <button onClick='location.href="{% url 'login_view' %}' class="btn btn-danger">Cancel</button>
+            <button id="next" type="submit" class="btn btn-form btn-primary">Create your account &gt; &gt;</button>
+          </div><br><br><br>
+        </div><!-- E -->
    
     
 </form><!-- Form End-->

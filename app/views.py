@@ -133,7 +133,8 @@ def createaccount(request):
 
 @login_required
 def applicant_index(request):
-    return render(request, 'applicant_index.html')
+    user = User.objects.get(id = request.user.id)
+    return render(request, 'applicant_index.html', {'user': user})
 
 
 #@login_required
@@ -153,7 +154,11 @@ def profile(request):
             applicant.zipcode = form.cleaned_data.get('zipcode')
             applicant.phone = form.cleaned_data.get('phone')
             applicant.dob = form.cleaned_data.get('dob')
-            applicant.pastapplicant = form.cleaned_data.get('pastapplicant')
+            applicant.languages = form.cleaned_data.get('languages')
+            applicant.communities = form.cleaned_data.get('communities')
+            applicant.working_now = form.cleaned_data.get('working_now')
+            applicant.school_now = form.cleaned_data.get('school_now')
+            applicant.past_applicant = form.cleaned_data.get('past_applicant')
             applicant.referral = form.cleaned_data.get('referral')
             applicant.save()
             return HttpResponseRedirect(reverse('index'))
