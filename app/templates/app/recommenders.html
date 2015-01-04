@@ -7,7 +7,7 @@
 <form class="form-horizontal" name="form" action="" method="post">
 {% csrf_token %}
 
-<h1 class="nopadding">Tell us who we can ask for a recommendation.</h1>
+<h1 class="nopadding">Tell us who we can ask about you!</h1>
 <hr class="form">
 
   <p>We'd like to hear from three people who know you – either at home, at work, or in your community. Try to pick people who know you in different parts of your life, and who know about your passions and your skills. You'll also need to check with them first to see if they are willing to answer some questions about you, and if they can do that before _____, 2015.<b> When you pick your recommenders, please choose people who are not also applying to the Code for Progress program as students.</b></p>
@@ -22,29 +22,29 @@
     <hr class="form">
     <br>
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">First/given names</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">First/given names</label>
+          <div class="col-xs-4">
           {% render_field form.rec1firstname class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">Last/family names</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">Last/family names</label>
+          <div class="col-xs-4">
           {% render_field form.rec1lastname class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">Email</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">Email</label>
+          <div class="col-xs-4">
           {% render_field form.rec1email class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">How do you know this recommender?</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-xs-4">
           {% render_field form.rec1relationship class+="form-control" %}
           </div>
         </div><!-- E -->
@@ -55,29 +55,29 @@
     <hr class="form">
     <br>
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">First/given names</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">First/given names</label>
+          <div class="col-xs-4">
           {% render_field form.rec2firstname class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">Last/family names</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">Last/family names</label>
+          <div class="col-xs-4">
           {% render_field form.rec2lastname class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">Email</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">Email</label>
+          <div class="col-xs-4">
           {% render_field form.rec2email class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">How do you know this recommender?</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-xs-4">
           {% render_field form.rec2relationship class+="form-control" %}
           </div>
         </div><!-- E -->
@@ -89,29 +89,29 @@
     <hr class="form">
     <br>
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">First/given names</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">First/given names</label>
+          <div class="col-xs-4">
           {% render_field form.rec3firstname class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">Last/family names</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">Last/family names</label>
+          <div class="col-xs-4">
           {% render_field form.rec3lastname class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">Email</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">Email</label>
+          <div class="col-xs-4">
           {% render_field form.rec3email class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
-          <label class="col-sm-6 control-label pull-left">How do you know this recommender?</label>
-          <div class="col-xs-2">
+          <label class="col-sm-2 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-xs-4">
           {% render_field form.rec3relationship class+="form-control" %}
           </div>
         </div><!-- E -->
@@ -119,7 +119,7 @@
 
         <div class="form-group"><!-- S XXX-->
             <br>
-          <div class="col-xs-8">
+          <div class="col-xs-6">
           <button id="next" type="submit" class="btn btn-form pull-right">Save these answers &gt; &gt;</button>
           </div><br><br><br>
         </div><!-- E -->

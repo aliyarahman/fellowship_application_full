@@ -8,16 +8,6 @@ from django_countries.fields import CountryField
 # That model is created via User.objects.create(username, email, password), and can then also hold first_name and last_name.
 
 
-class Staff(models.Model):
-    user = models.OneToOneField(User)
-    role = models.IntegerField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
-    updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
-
-    def __unicode__(self):
-        return self.user.email
-
-
 class Applicant(models.Model):
     user = models.OneToOneField(User)
     role = models.IntegerField(null=True, blank=True)
@@ -73,8 +63,25 @@ class Applicant(models.Model):
     def __unicode__(self):
         return self.user.email
 
-    def get_id(self):
-        return self.id
+    def profile_complete(self):
+        if self.referral
+        return True
+
+    def tech_questions_complete(self):
+        if self.tech1
+        return True
+
+    def short_answers_complete(self):
+        if self.shortanswer1
+        return True
+
+    def recommenders_complete(self):
+        if self.rec1email
+        return True
+
+    def application_complete(self):
+        if self.profile_complete and self.tech_questions_complete and self.short_answers_complete and self.recommenders_complete:
+        return True
 
     def num_evaluators(self):
         evals = self.evaluation_set.all()
@@ -172,3 +179,14 @@ class Evaluation(models.Model):
 
     def __unicode__(self):
         return "Evaluation "+ str(self.id)
+
+
+
+class Staff(models.Model):
+    user = models.OneToOneField(User)
+    role = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
+    updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+
+    def __unicode__(self):
+        return self.user.email
