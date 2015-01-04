@@ -83,7 +83,7 @@ def faq(request):
 def index(request):
     try:
         if request.user.applicant:
-            return HttpResponseRedirect(reverse('createaccount'))
+            return HttpResponseRedirect(reverse('applicant_index'))
     except:
         pass
     try:
@@ -107,6 +107,7 @@ def index(request):
 # Section II: Views for Applicant functionality
 # =============================================
 
+
 def createaccount(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('profile'))
@@ -124,10 +125,16 @@ def createaccount(request):
             applicant.save()
             user = authenticate(username=username, password=password)
             login(request, user)
-            return HttpResponseRedirect(reverse('profile'))
+            return HttpResponseRedirect(reverse('index'))
     else:
         form = CreateAccountForm()
     return render(request, 'create_account.html', {'form':form})
+
+
+@login_required
+def applicant_index(request):
+    return render(request, 'applicant_index.html')
+
 
 #@login_required
 def profile(request):
@@ -149,7 +156,7 @@ def profile(request):
             applicant.pastapplicant = form.cleaned_data.get('pastapplicant')
             applicant.referral = form.cleaned_data.get('referral')
             applicant.save()
-            return HttpResponseRedirect(reverse('tech'))
+            return HttpResponseRedirect(reverse('index'))
     else:
         userinfo = model_to_dict(user)
         applicationinfo = model_to_dict(applicant)
@@ -169,7 +176,7 @@ def tech(request):
             applicant.tech2 = form.cleaned_data.get('tech2')
             applicant.tech3 = form.cleaned_data.get('tech3')
             applicant.save()
-            return HttpResponseRedirect(reverse('shortanswers'))
+            return HttpResponseRedirect(reverse('index'))
     else:
         user = User.objects.get(id = request.user.id)
         applicant = user.applicant
@@ -195,7 +202,7 @@ def shortanswers(request):
             applicant.shortanswer8 = form.cleaned_data.get('shortanswer8')
             applicant.anything_else = form.cleaned_data.get('anything_else')
             applicant.save()
-            return HttpResponseRedirect(reverse('recommenders'))
+            return HttpResponseRedirect(reverse('index'))
     else:
         user = User.objects.get(id = request.user.id)
         applicant = user.applicant
@@ -224,7 +231,7 @@ def recommenders(request):
             applicant.rec3email = form.cleaned_data.get('rec3email')
             applicant.rec3relationship = form.cleaned_data.get('rec3relationship')
             applicant.save()
-            return HttpResponseRedirect(reverse('finalsubmission'))
+            return HttpResponseRedirect(reverse('index'))
     else:
         user = User.objects.get(id = request.user.id)
         applicant = user.applicant

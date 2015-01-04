@@ -64,24 +64,24 @@ class Applicant(models.Model):
         return self.user.email
 
     def profile_complete(self):
-        if self.referral
-        return True
+        if self.referral:
+            return True
 
     def tech_questions_complete(self):
-        if self.tech1
-        return True
+        if self.tech1:
+            return True
 
     def short_answers_complete(self):
-        if self.shortanswer1
-        return True
+        if self.shortanswer1:
+            return True
 
     def recommenders_complete(self):
-        if self.rec1email
-        return True
+        if self.rec1email:
+            return True
 
     def application_complete(self):
         if self.profile_complete and self.tech_questions_complete and self.short_answers_complete and self.recommenders_complete:
-        return True
+            return True
 
     def num_evaluators(self):
         evals = self.evaluation_set.all()
