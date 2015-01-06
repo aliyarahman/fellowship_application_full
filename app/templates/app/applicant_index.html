@@ -3,11 +3,11 @@
 {% block content %}
 
 
-<h1>Your application progress</h1>
+<h1>Your application dashboard</h1>
 <hr class="form">
 
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1"><p>This application has four parts that you need to finish before you can send it to us. The buttons for each section will be blue until you finish answering that section's questions - when the button turns green, you're done!</p>
+  <div class="col-xs-10 col-xs-offset-1"><p>This application has four parts that you need to finish before you can send it to us. The buttons for each section will be white until you finish answering that section's questions - when the button turns green, you're done!</p>
   
   <p>You can always change what you've written in a section, even if it's marked green, before you send in your final application. The button for submitting your complete application will turn blue when all of your sections are done.</p>
 
@@ -19,20 +19,22 @@
     <br><br>
     <div class="row center-block">
 
-          <div class="col-sm-2 col-sm-offset-2">
-              <button onClick='location.href="{% url 'profile' %}"' class="btn btn-block btn-lg {% if user.applicant.profile_complete %}btn-success{% else %}btn-info {% endif %}">Profile</button>
-          </div>
+          <ul><div class="col-sm-8 col-sm-offset-2">
+              <div>
+                  <button onClick='location.href="{% url 'profile' %}"' class="btn btn-block btn-lg {% if user.applicant.profile_complete %}btn-success{% else %}btn-default {% endif %}">Profile</button>
+              </div><br>
 
-          <div class="col-sm-2">
-              <button onClick='location.href="{% url 'tech' %}"' class="btn btn-block btn-lg {% if user.applicant.tech_questions_complete %}btn-success{% else %}btn-info {% endif %}">Tech experience</button>
-          </div>
+              <div>
+                  <button onClick='location.href="{% url 'tech' %}"' class="btn btn-block btn-lg {% if user.applicant.tech_questions_complete %}btn-success{% else %}btn-default {% endif %}">Tech experience</button>
+              </div><br>
 
-          <div class="col-sm-2">
-              <button onClick='location.href="{% url 'shortanswers' %}"' class="btn-block btn btn-lg {% if user.applicant.shortanswers_complete %}btn-success{% else %}btn-info {% endif %}">Short Answers</button>
-          </div>
+              <div>
+                  <button onClick='location.href="{% url 'shortanswers' %}"' class="btn-block btn btn-lg {% if user.applicant.shortanswers_complete %}btn-success{% else %}btn-default {% endif %}">Short Answers</button>
+              </div><br>
 
-          <div class="col-sm-2">
-              <button onClick='location.href="{% url 'recommenders' %}"' class="btn btn-block btn-lg {% if user.applicant.recommenders_complete %}btn-success{% else %}btn-info {% endif %}">Recommenders</button>
+              <div>
+                  <button onClick='location.href="{% url 'recommenders' %}"' class="btn btn-block btn-lg {% if user.applicant.recommenders_complete %}btn-success{% else %}btn-default {% endif %}">Recommenders</button>
+              </div>
           </div>
 
     </div>

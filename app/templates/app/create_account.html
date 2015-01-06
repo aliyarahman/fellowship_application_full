@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "login_base.html" %}
 {% load widget_tweaks %}
 {% block content %}
 
@@ -47,7 +47,7 @@
         <div class="form-group"><!-- S XXX-->
             <br>
           <div class="col-xs-12 text-right">
-            <button onClick='location.href="{% url 'login_view' %}' class="btn btn-danger">Cancel</button>
+            <button onClick='location.href="{% url 'index' %}' class="btn btn-default">Cancel</button>
             <button id="next" type="submit" class="btn btn-form btn-primary">Create your account &gt; &gt;</button>
           </div><br><br><br>
         </div><!-- E -->
