@@ -97,7 +97,7 @@ class Applicant(models.Model):
             return True
 
     def tech_questions_complete(self):
-        if self.tech1:
+        if self.tech1b:
             return True
 
     def short_answers_complete(self):

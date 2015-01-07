@@ -40,10 +40,29 @@ class ProfileForm(Form):
     
 
 class TechForm(Form):
-    tech1 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech2 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech3 = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-#    ab540 = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
+    tech1b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech2b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech4b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech5b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech6b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech7b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech8b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech9b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech10b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech11b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech12b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech13b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech14b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech15b = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech1s = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech2s = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3s = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech1c = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech2c = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3c = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech4c = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech5c = ChoiceField(required=True, choices=(('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
 
 
 class ShortAnswersForm(Form):
