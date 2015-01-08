@@ -4,7 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Code for Progress 2015 Fellowship application</title>
+    <title>
+      {% if user.staff %}
+      Code for Progress Staff portal
+      {% elif user.evaluator %}
+      Code for Progress 2015 Fellowship Selection Committee portal
+      {% elif user.recommender %}
+      Code for Progress 2015 Fellowship Recommender portal
+      {% else %}
+      Code for Progress 2015 Fellowship application
+      {% endif %}
+    </title>
 	{% load staticfiles %}
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
