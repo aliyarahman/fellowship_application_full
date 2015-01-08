@@ -1,4 +1,10 @@
-body {background-color:white;}
+* {
+  margin: 0;
+}
+
+body {
+  background-color:white;
+  font-size: 2em;}
 
 .green-text {
   color: #AEBE37;
@@ -54,6 +60,13 @@ h1, h2, h3, h4, h5, a, label, b, strong {
 
 .navbar-default .navbar-nav>li>a:hover {
   color: #9DA8AA;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -155px;
 }
 
 .footer {
