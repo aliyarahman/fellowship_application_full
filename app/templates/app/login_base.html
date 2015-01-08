@@ -27,6 +27,8 @@
   </head>
   <body>
 
+    <div id="wrap">
+
 
       <div class="page-header">
         <div class="container"><h1><br><br><br></h1></div>
@@ -61,8 +63,6 @@
 
 
       <div class="container">
-
-
         {% if form.errors %}
             {% for field in form %}
                 {% for error in field.errors %}
@@ -78,15 +78,13 @@
             {% endfor %}
         {% endif %}
 
-
-        <div class="wrapper">
           {% block content %}
 
           {% endblock %}
-        </div>
-
     </div>
     
+  </div>
+
     {% block footer %}
     <footer class="footer">
         <div class="container">

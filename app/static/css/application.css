@@ -1,10 +1,21 @@
-* {
-  margin: 0;
-}
-
 body {
   background-color:white;
   font-size: 2em;}
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+/* Wrapper for page content to push down footer */
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -50px;
+}
 
 .green-text {
   color: #AEBE37;
@@ -60,13 +71,6 @@ h1, h2, h3, h4, h5, a, label, b, strong {
 
 .navbar-default .navbar-nav>li>a:hover {
   color: #9DA8AA;
-}
-
-.wrapper {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -155px;
 }
 
 .footer {
