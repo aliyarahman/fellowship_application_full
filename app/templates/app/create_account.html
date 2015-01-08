@@ -1,60 +1,62 @@
-{% extends "login_base.html" %}
+{% extends "base.html" %}
 {% load widget_tweaks %}
 {% block content %}
 
+<h1>Let's create your account.</h1>
+<hr class="form">
 
-<div class="ch-container"><!-- Form Start-->
-<form class="form-horizontal" name="form" action="" method="post">
+<form class="form-horizontal" action="" name="form" method="post">
 {% csrf_token %}
 
-
-
-<h1 class="nopadding">Let's create your account.</h1>
-<hr class="form">
     <div class="form-group"><!-- S -->
-      <label for="firstname" class="col-sm-4 col-sm-offset-2 control-label left">First/given name(s)</label>
-      <div class="col-xs-4">
+      <label for="firstname" class="col-sm-4 control-label left">First/given name(s)</label>
+      <div class="col-sm-4">
       {% render_field form.first_name class+="form-control" %}
       </div>
     </div><!-- E -->
 
     <div class="form-group"><!-- S -->
-      <label for="lastname" class="col-sm-4 col-sm-offset-2 control-label left">Last/family names</label>
-      <div class="col-xs-4">
+      <label for="lastname" class="col-sm-4 control-label left">Last/family names</label>
+      <div class="col-sm-4">
       {% render_field form.last_name class+="form-control" %}
       </div>
     </div><!-- E -->
     
     <div class="form-group"><!-- S -->
-      <label for="email" class="col-sm-4 col-sm-offset-2 control-label left">Email</label>
-      <div class="col-xs-4">
+      <label for="email" class="col-sm-4 control-label left">Email</label>
+      <div class="col-sm-4">
       {% render_field form.email class+="form-control" %}
       </div>
     </div><!-- E -->
+
     <div class="form-group"><!-- S -->
-      <label for="password" class="col-sm-4 col-sm-offset-2 control-label left">Password</label>
-      <div class="col-xs-4">
+      <label for="password" class="col-sm-4 control-label left">Password</label>
+      <div class="col-sm-4">
       {% render_field form.password class+="form-control" %}
       </div>
     </div><!-- E -->
+
     <div class="form-group"><!-- S -->
-      <label for="retypepassword" class="col-sm-4 col-sm-offset-2 control-label left">Retype Password</label>
-      <div class="col-xs-4">
+      <label for="retypepassword" class="col-sm-4 control-label left">Retype Password</label>
+      <div class="col-sm-4">
       {% render_field form.retype_password class+="form-control" %}
       </div>
     </div><!-- E -->
 
-        <div class="form-group"><!-- S XXX-->
-            <br><br>
-          <div class="col-xs-8 col-xs-offset-4">
-            <button onClick='location.href="{% url 'index' %}' class="btn btn-lg btn-default">Cancel</button>
-            <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Create your account &gt; &gt;</button>
-          </div><br><br><br>
-        </div><!-- E -->
+    <div class="form-group"><!-- S XXX-->
+      <br><br>
+      <div class="col-sm-8 col-sm-offset-4">
+        <div onClick='location.href="{% url 'index' %}"' class="btn btn-lg btn-default">
+          Cancel
+        </div>
+
+        <button id="next" type="submit" class="btn btn-lg btn-form btn-success">
+          Create your account &gt; &gt;
+        </button>
+
+      </div>
+    </div><!-- E -->
+  </form><!-- Form End-->
+    <br><br><br>
    
-    
-</form><!-- Form End-->
-</div><!-- Form End-->
-
-
 {% endblock %}
