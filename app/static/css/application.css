@@ -14,7 +14,7 @@ body {
   height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
-  margin: 0 auto -50px;
+  margin: 0 auto 0px;
 }
 
 .green-text {

@@ -27,6 +27,7 @@
   </head>
 
   <body>
+    <div id="wrap">
 
       <div class="page-header">
         <div class="container"><h1><br><br><br></h1></div>
@@ -49,7 +50,7 @@
             <div class="collapse navbar-collapse">
               
               <ul class="nav navbar-nav">
-                <li class="btn-nav"><a href="{% url 'index' %}">Dashboard</a></li>
+                {% if user.is_authenticated %}<li class="btn-nav"><a href="{% url 'index' %}">Dashboard</a></li>{% endif %}
               </ul>
 
               <ul class="nav navbar-nav navbar-right">
@@ -83,9 +84,6 @@
             {% endfor %}
         {% endif %}
 
-
-
-        <div class="wrapper">
     	    {% block content %}
 
           {% endblock %}
