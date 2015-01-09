@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<h1>Your recommendation dashboard</h1>
+<hr class="form">
+
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <p>Thanks for recommending a 2015 Code for Progress applicant!</p>
+
+    <p>The applicants who have requested your recommendation appear below - just click a name to get started. The button for each applicant will remain white until you've completed their application - when the button turns green, you're done!</p>
+
+    <p>The application deadline is <b>March 15, 2015</b> is the application deadline - so we'll need your recommendations to be submitted by then.</p>
+  </div>
+
+</div>
+
+
+    <br><br>
+    <div class="row center-block">
+
+      {% for recommendation in recommendations %}
+          <div class="col-sm-8 col-sm-offset-2">
+
+              <div>
+                  <button {% if not recommendation.is_complete %}onClick='location.href="{% url 'recommend' recommendation.id %}"'{% endif %} class="btn-block btn btn-lg {% if recommendation.is_complete %}btn-success disabled{% else %}btn-default {% endif %}">{{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</button>
+              </div><br>
+
+          </div>
+      {% endfor %}
+
+    </div>
+
+
+    {% if recommender.all_recs_complete %}
+        <div><!-- S XXX-->
+          Thanks for completing your recommendations! You can log back into the site if another applicant requests your comments.
+
+        </div><!-- E -->
+    {% endif %}
+
+
+{% endblock %}
