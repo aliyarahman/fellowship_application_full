@@ -149,7 +149,7 @@ class Recommender(models.Model):
     def all_recs_complete(self):
         recommendations = self.recommendation_set.all()
         for r in recommendations:
-            if not r.is_complete:
+            if not r.is_complete():
                 return False
         return True
 
