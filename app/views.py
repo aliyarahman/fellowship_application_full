@@ -299,7 +299,7 @@ def rec_index(request):
     user = User.objects.get(id = request.user.id)
     recommender = user.recommender
     recommendations = recommender.recommendation_set.all()
-    return render(request, 'rec_index.html', {'recommender':recommender',recommendations':recommendations})
+    return render(request, 'rec_index.html', {'recommender':recommender,'recommendations':recommendations})
 
 
 @login_required
