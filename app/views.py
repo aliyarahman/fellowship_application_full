@@ -322,7 +322,7 @@ def recommend(request, recommendation_id):#pass in the student this is for
             return HttpResponseRedirect(reverse('rec_index'))
     else:
         recommendationinfo = model_to_dict(recommendation)
-        form = RecommenderForm(initial=recommendationinfo)
+        form = RecommendationForm(initial=recommendationinfo)
     return render(request, 'recommendation.html', {'form':form})
 
 

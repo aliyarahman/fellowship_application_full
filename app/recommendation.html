@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div><!-- Form Start-->
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+
+<h1>Recommendation for {{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</h1>
+<hr class="form">
+    
+    <p>Please tell us a bit about {{recommendation.applicant.user.first_name}}.</p>
+
+    <p>Please note that you will need to fill out all of the questions on this form before pressing submit, or your answers may be erased. If you want to save and return to your work as you're writing, we recommend that you write your recommendation in a separate document and paste in your answers below.</p>
+
+
+        <br><br><br>
+
+        <div class="form-group"><!-- S -->
+          <div class="col-sm-10 left">How long have you known {{recommendation.applicant.user.first_name}}? In what capacity have you known them?</div><br><br>
+          <div class="col-xs-10">
+          {% render_field form.known_applicant class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <br><br><br>
+
+
+        <div class="form-group"><!-- S XXX-->
+            <br><br>
+          <div class="col-xs-4 col-xs-offset-8">
+            <div onClick='location.href="{% url 'index' %}"' class="btn btn-lg btn-default">
+          Cancel
+            </div>
+            <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Save these answers &gt; &gt;</button>
+          </div><br><br><br><br><br>
+        </div><!-- E -->
+
+    
+</form><!-- Form End-->
+</div><!-- Form End-->
+
+
+{% endblock %}

@@ -99,15 +99,21 @@ class RecommendersForm(Form):
 
 
 class RecommendationForm(Form):
-    known_applicant = CharField(required=True)
-    problem_solving_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
-    problem_solving = CharField(required=True)
-    obstacles_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
-    obstacles = CharField(required=True)
-    community_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
-    community = CharField(required=True)
-    accomodations_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
-    accomodations = CharField(required=True)
+    known_applicant = CharField(widget=Textarea(), required=True)
+    commitment_to_justice_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    commitment_to_justice = CharField(widget=Textarea(), required=True)
+    problem_solving_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    problem_solving = CharField(widget=Textarea(), required=True)
+    obstacles_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    obstacles = CharField(widget=Textarea(), required=True)
+    teaching_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    teaching = CharField(widget=Textarea(), required=True)
+    curiosity_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    curiosity = CharField(widget=Textarea(), required=True)
+    help_rating = ChoiceField(widget=RadioSelect, choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    help = CharField(widget=Textarea(), required=True)
+    acommodations = CharField(widget=Textarea(), required=True)
+    support = CharField(widget=Textarea(), required=True)
     anything_else = CharField(widget=Textarea(), required=False)
 
 
