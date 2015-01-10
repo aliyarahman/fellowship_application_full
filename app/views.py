@@ -323,7 +323,7 @@ def recommend(request, recommendation_id):#pass in the student this is for
     else:
         recommendationinfo = model_to_dict(recommendation)
         form = RecommendationForm(initial=recommendationinfo)
-    return render(request, 'recommendation.html', {'form':form})
+    return render(request, 'recommendation.html', {'form':form, 'recommendation':recommendation})
 
 
 

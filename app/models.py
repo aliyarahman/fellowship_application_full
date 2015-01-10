@@ -171,7 +171,7 @@ class Recommendation(models.Model):
     curiosity = models.TextField()
     help_rating = models.IntegerField(default=0)
     help = models.TextField()    
-    accomodations = models.TextField()
+    accommodations = models.TextField()
     support = models.TextField()
     anything_else = models.TextField()
 
