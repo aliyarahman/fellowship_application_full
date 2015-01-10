@@ -140,7 +140,21 @@ def applicant_index(request):
         user.applicant
     except:
         return HttpResponseRedirect(reverse('index'))
+    if applicant.application_complete():
+        return HttpResponseRedirect(reverse('applicant_index_complete'))
     return render(request, 'applicant_index.html', {'user': user})
+
+
+@login_required
+def applicant_index_complete(request):
+    user = User.objects.get(id = request.user.id)
+    try:
+        user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
+    if not applicant.application_complete():
+        return HttpResponseRedirect(reverse('applicant_index'))
+    return render(request, 'applicant_index_complete.html', {'user': user})
 
 
 @login_required

@@ -27,7 +27,7 @@ class ProfileForm(Form):
     email = CharField(required=True)
     city = CharField(required=True)
     state = CharField(required=True)
-    country = ChoiceField(required=False, choices=countries)
+    country = ChoiceField(required=False, choices=(countries))
     zipcode = CharField(required=True)
     phone = CharField(required=True)
     dob = CharField(required=True)
