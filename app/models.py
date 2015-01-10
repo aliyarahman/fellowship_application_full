@@ -10,20 +10,20 @@ from django_countries.fields import CountryField
 
 class Applicant(models.Model):
     user = models.OneToOneField(User)
-    role = models.IntegerField(null=True, blank=True)
-    city = models.CharField(max_length=45)
-    state = models.CharField(max_length=45)
-    country = CountryField()
-    zipcode = models.CharField(max_length=10)
-    dob = models.CharField(max_length=15)
-    phone = models.CharField(max_length=15)
-    languages = models.TextField()
-    communities = models.TextField()
-    working_now = models.TextField()
-    school_now = models.TextField()
-    time_commitment = models.TextField()
+    role = models.IntegerField(default=1)
+    city = models.CharField(max_length=45, null=True, blank=True)
+    state = models.CharField(max_length=45, null=True, blank=True)
+    country = CountryField(null=True, blank=True)
+    zipcode = models.CharField(max_length=10, null=True, blank=True)
+    dob = models.CharField(max_length=15, null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
+    languages = models.TextField(null=True, blank=True)
+    communities = models.TextField(null=True, blank=True)
+    working_now = models.TextField(null=True, blank=True)
+    school_now = models.TextField(null=True, blank=True)
+    time_commitment = models.TextField(null=True, blank=True)
     past_applicant = models.IntegerField(null=True, blank=True)
-    referral = models.CharField(max_length=45)
+    referral = models.CharField(max_length=45, null=True, blank=True)
 
     #  Tech responses
     tech1b = models.IntegerField(null=True, blank=True)
@@ -53,35 +53,35 @@ class Applicant(models.Model):
 
 
     #  Shortanswer responses
-    shortanswer1 = models.TextField()
-    shortanswer2 = models.TextField()
-    shortanswer3 = models.TextField()
-    shortanswer4 = models.TextField()
-    shortanswer5 = models.TextField()
-    shortanswer6 = models.TextField()
-    shortanswer7 = models.TextField()
-    shortanswer8 = models.TextField()
-    shortanswer9 = models.TextField()
-    shortanswer10 = models.TextField()
-    shortanswer11 = models.TextField()
-    shortanswer12 = models.TextField()
-    shortanswer13 = models.TextField()
-    shortanswer14 = models.TextField()
-    anything_else = models.TextField()
+    shortanswer1 = models.TextField(null=True, blank=True)
+    shortanswer2 = models.TextField(null=True, blank=True)
+    shortanswer3 = models.TextField(null=True, blank=True)
+    shortanswer4 = models.TextField(null=True, blank=True)
+    shortanswer5 = models.TextField(null=True, blank=True)
+    shortanswer6 = models.TextField(null=True, blank=True)
+    shortanswer7 = models.TextField(null=True, blank=True)
+    shortanswer8 = models.TextField(null=True, blank=True)
+    shortanswer9 = models.TextField(null=True, blank=True)
+    shortanswer10 = models.TextField(null=True, blank=True)
+    shortanswer11 = models.TextField(null=True, blank=True)
+    shortanswer12 = models.TextField(null=True, blank=True)
+    shortanswer13 = models.TextField(null=True, blank=True)
+    shortanswer14 = models.TextField(null=True, blank=True)
+    anything_else = models.TextField(null=True, blank=True)
 
     # Recommender info
-    rec1firstname = models.CharField(max_length=45)
-    rec1lastname = models.CharField(max_length=45)
-    rec1email = models.CharField(max_length=45)
-    rec1relationship = models.CharField(max_length=140)
-    rec2firstname = models.CharField(max_length=45)
-    rec2lastname = models.CharField(max_length=45)
-    rec2email = models.CharField(max_length=45)
-    rec2relationship = models.CharField(max_length=140)
-    rec3firstname = models.CharField(max_length=45)
-    rec3lastname = models.CharField(max_length=45)
-    rec3email = models.CharField(max_length=45)
-    rec3relationship = models.CharField(max_length=140)
+    rec1firstname = models.CharField(max_length=45, null=True, blank=True)
+    rec1lastname = models.CharField(max_length=45, null=True, blank=True)
+    rec1email = models.CharField(max_length=45, null=True, blank=True)
+    rec1relationship = models.CharField(max_length=140, null=True, blank=True)
+    rec2firstname = models.CharField(max_length=45, null=True, blank=True)
+    rec2lastname = models.CharField(max_length=45, null=True, blank=True)
+    rec2email = models.CharField(max_length=45, null=True, blank=True)
+    rec2relationship = models.CharField(max_length=140, null=True, blank=True)
+    rec3firstname = models.CharField(max_length=45, null=True, blank=True)
+    rec3lastname = models.CharField(max_length=45, null=True, blank=True)
+    rec3email = models.CharField(max_length=45, null=True, blank=True)
+    rec3relationship = models.CharField(max_length=140, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
@@ -93,19 +93,19 @@ class Applicant(models.Model):
         return self.user.email
 
     def profile_complete(self):
-        if self.referral:
+        if self.state and self.country and self.zipcode and self.dob and self.phone and self.languages and self.communities and self.working_now and self.school_now and self.time_commitment and self.past_applicant and self.referral:
             return True
 
     def tech_questions_complete(self):
-        if self.tech1b:
+        if self.tech1b and self.tech2b and self.tech3b and self.tech4b and self.tech5b and self.tech6b and self.tech7b and self.tech8b and self.tech9b and self.tech10b and self.tech11b and self.tech12b and self.tech13b and self.tech14b and self.tech15b and self.tech16b and self.tech1s and self.tech2s and self.tech3s and self.tech1c and self.tech2c and self.tech3c and self.tech4c and self.tech5c:
             return True
 
     def short_answers_complete(self):
-        if self.shortanswer1:
+        if self.shortanswer1 and self.shortanswer2 and self.shortanswer3 and self.shortanswer4 and self.shortanswer5 and self.shortanswer6 and self.shortanswer7 and self.shortanswer8 and self.shortanswer9 and self.shortanswer10 and self.shortanswer11 and self.shortanswer12 and self.shortanswer13:
             return True
 
     def recommenders_complete(self):
-        if self.rec1email:
+        if self.rec1firstname and self.rec1lastname and self.rec1email and self.rec1relationship and self.rec2firstname and self.rec2lastname and self.rec2email and self.rec2relationship and self.rec3firstname and self.rec3lastname and self.rec3email and self.rec3relationship:
             return True
 
     def application_complete(self):
@@ -133,7 +133,7 @@ class Applicant(models.Model):
 
 class Recommender(models.Model):
     user = models.OneToOneField(User)
-    role = models.IntegerField(null=True, blank=True)
+    role = models.IntegerField(default=2)
     relationship = models.CharField(max_length=140, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
@@ -158,35 +158,35 @@ class Recommender(models.Model):
 class Recommendation(models.Model):
     applicant = models.ForeignKey(Applicant)
     recommender = models.ForeignKey(Recommender)
-    known_applicant = models.TextField()
-    commitment_to_justice_rating = models.IntegerField(default=0)
-    commitment_to_justice = models.TextField()
-    problem_solving_rating = models.IntegerField(default=0)
-    problem_solving = models.TextField()
-    obstacles_rating = models.IntegerField(default=0)
-    obstacles = models.TextField()
-    teaching_rating = models.IntegerField(default=0)
-    teaching = models.TextField()
-    curiosity_rating = models.IntegerField(default=0)
-    curiosity = models.TextField()
-    help_rating = models.IntegerField(default=0)
-    help = models.TextField()    
-    accommodations = models.TextField()
-    support = models.TextField()
-    anything_else = models.TextField()
+    known_applicant = models.TextField(null=True, blank=True)
+    commitment_to_justice_rating = models.IntegerField(null=True, blank=True)
+    commitment_to_justice = models.TextField(null=True, blank=True)
+    problem_solving_rating = models.IntegerField(null=True, blank=True)
+    problem_solving = models.TextField(null=True, blank=True)
+    obstacles_rating = models.IntegerField(null=True, blank=True)
+    obstacles = models.TextField(null=True, blank=True)
+    teaching_rating = models.IntegerField(null=True, blank=True)
+    teaching = models.TextField(null=True, blank=True)
+    curiosity_rating = models.IntegerField(null=True, blank=True)
+    curiosity = models.TextField(null=True, blank=True)
+    help_rating = models.IntegerField(null=True, blank=True)
+    help = models.TextField(null=True, blank=True)
+    accommodations = models.TextField(null=True, blank=True)
+    support = models.TextField(null=True, blank=True)
+    anything_else = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return "Recommendation " + str(self.id)
 
     def is_complete(self):
-        if self.known_applicant and self.problem_solving_rating and self.obstacles_rating and self.community_rating and self.accomodations_rating:
+        if self.known_applicant and self.commitment_to_justice_rating and self.commitment_to_justice and self.problem_solving_rating and self.problem_solving and self.obstacles_rating and self.obstacles and self.teaching_rating and self.teaching and self.curiosity_rating and self.curiosity and self.help_rating and self.help and self.accomodations and self.support:
             return True
         return False
 
 
 class Evaluator(models.Model):
     user = models.OneToOneField(User)
-    role = models.IntegerField(null=True, blank=True)
+    role = models.IntegerField(default=3)
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
@@ -215,7 +215,7 @@ class Evaluation(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     def is_complete(self):
-        if self.criteria_1_rating:
+        if self.criteria_1_rating and self.criteria_2_rating and self.criteria_3_rating and self.criteria_4_rating and self.criteria_5_rating and self.recommend:
             return True
         return False
 
