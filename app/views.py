@@ -17,7 +17,6 @@ from django.core.mail import send_mail
 
 # Section I: Views for all users
 # ==============================
-
 def login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
@@ -34,6 +33,8 @@ def logout_view(request):
 
 
 def forgot_password(request):
+    if user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
     if request.method == "POST":
         form = ForgotPasswordForm(data=request.POST)
         if form.is_valid():
@@ -52,6 +53,8 @@ def forgot_password(request):
 
 
 def forgot_password_confirmation(request):
+    if user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'forgot_password_confirmation.html')
 
 
@@ -107,7 +110,6 @@ def index(request):
 # Section II: Views for Applicant functionality
 # =============================================
 
-
 def createaccount(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('profile'))
@@ -134,12 +136,20 @@ def createaccount(request):
 @login_required
 def applicant_index(request):
     user = User.objects.get(id = request.user.id)
+    try:
+        user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'applicant_index.html', {'user': user})
 
 
-#@login_required
+@login_required
 def profile(request):
     user = User.objects.get(id = request.user.id)
+    try:
+        user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     applicant = user.applicant
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -172,6 +182,10 @@ def profile(request):
 
 @login_required
 def tech(request):
+    try:
+        request.user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     if request.method == 'POST':
         form = TechForm(request.POST)
         if form.is_valid():
@@ -192,6 +206,10 @@ def tech(request):
 
 @login_required
 def shortanswers(request):
+    try:
+        request.user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     if request.method == 'POST':
         form = ShortAnswersForm(request.POST)
         if form.is_valid():
@@ -218,6 +236,10 @@ def shortanswers(request):
 
 @login_required
 def recommenders(request):
+    try:
+        request.user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     if request.method == 'POST':
         form = RecommendersForm(request.POST)
         if form.is_valid():
@@ -246,11 +268,19 @@ def recommenders(request):
 
 @login_required
 def finalsubmission(request):
+    try:
+        request.user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     user = User.objects.get(id = request.user.id)
     return render(request, 'finalsubmission.html')
 
 @login_required
 def received(request):
+    try:
+        request.user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     user = User.objects.get(id = request.user.id)
     add_recommender(user.applicant.ref1email, user.applicant.ref1firstname, user.applicant.ref1lastname, user.applicant.ref1relationship, applicant)
     add_recommender(user.applicant.ref2email, user.applicant.ref2firstname, user.applicant.ref2lastname, user.applicant.ref2relationship, applicant)
@@ -273,6 +303,10 @@ def add_recommender(email, first_name, last_name, relationship, applicant):
 
 @login_required
 def my_recommenders(request, recommender):
+    try:
+        request.user.applicant
+    except:
+        return HttpResponseRedirect(reverse('index'))
     user = User.objects.get(id = request.user.id)
     if request.method == "POST":
         form = ChangeRecommenderForm(data=request.POST)
@@ -290,13 +324,16 @@ def my_recommenders(request, recommender):
 
 
 
-
 # Section III: Views for recommender functionality
 # ================================================
 
 @login_required
 def rec_index(request):
     user = User.objects.get(id = request.user.id)
+    try:
+        user.recommender
+    except:
+        return HttpResponseRedirect(reverse('index'))
     recommender = user.recommender
     recommendations = recommender.recommendation_set.all()
     return render(request, 'rec_index.html', {'recommender':recommender,'recommendations':recommendations})
@@ -304,6 +341,10 @@ def rec_index(request):
 
 @login_required
 def recommend(request, recommendation_id):#pass in the student this is for
+    try:
+        request.user.recommender
+    except:
+        return HttpResponseRedirect(reverse('index'))
     recommendation = Recommendation.objects.get(id = recommendation_id) #look up the recommendation that is for
     if request.method == 'POST':
         form = RecommendationForm(request.POST)
@@ -332,6 +373,10 @@ def recommend(request, recommendation_id):#pass in the student this is for
 
 @login_required
 def eval_index(request):
+    try:
+        request.user.evaluator
+    except:
+        return HttpResponseRedirect(reverse('index'))
     user = User.objects.get(id = request.user.id)
     evaluator = user.evaluator
     evaluations = evaluator.evaluation_set.all()
@@ -340,6 +385,10 @@ def eval_index(request):
 
 @login_required
 def evaluate(request, evaluation_id):#pass in the student this is for
+    try:
+        request.user.evaluator
+    except:
+        return HttpResponseRedirect(reverse('index'))
     evaluation = Evaluation.objects.get(id = evaluation_id)
     applicant = evaluation.applicant
     recommendations = applicant.recommendation_set.all() 
@@ -369,36 +418,50 @@ def evaluate(request, evaluation_id):#pass in the student this is for
 
 @login_required
 def staff_index_applicants(request):
+    try:
+        request.user.staff
+    except:
+        return HttpResponseRedirect(reverse('index'))    
     applicants = Applicant.objects.all()
     return render(request, "staff_index_applicants.html", {'applicants':applicants})
 
 
 @login_required
 def staff_index_evaluators(request):
+    try:
+        request.user.staff
+    except:
+        return HttpResponseRedirect(reverse('index'))
     evaluators = Evaluator.objects.all()
     return render(request, "staff_index_evaluators.html", {'evaluators':evaluators})
 
 
 @login_required
 def staff_index_recommenders(request):
+    try:
+        request.user.staff
+    except:
+        return HttpResponseRedirect(reverse('index'))
     recommenders = Recommender.objects.all()
     return render(request, "staff_index_recommenders.html", {'recommenders':recommenders})
 
 
 @login_required
 def staff_index_staff(request):
+    try:
+        request.user.staff
+    except:
+        return HttpResponseRedirect(reverse('index'))
     staff = Staff.objects.all()
     return render(request, "staff_index_staff.html", {'staff':staff})
 
 
 @login_required
 def assign_evaluator(request, applicant_id):
+    try:
+        request.user.staff
+    except:
+        return HttpResponseRedirect(reverse('index'))
     applicant = Applicant.objects.get(id = applicant_id)
     evaluators = Evaluator.objects.all()
     return render(request, "assign_evaluator.html", {'applicant': applicant, 'evaluators':evaluators})
-#### Need to update this functionality to actually add the evaluator whose button is pressed ###
-    #if request.method == 'POST':
-        #e_id = form.cleaned_data.get('evaluator')
-        #e = Evaluator.objects.get(id = e)
-        #Recommendation(applicant=applicant, evaluator = e)
-        #recommendation.save()

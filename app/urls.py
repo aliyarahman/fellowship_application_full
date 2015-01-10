@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url, include
 from app import views
 
 urlpatterns = patterns('',
-    url(r'^$', 'django.contrib.auth.views.login'),
+    url(r'^$', views.index, name='index'),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', views.logout_view, name='logout_view'),
     url(r'^forgot_password/$', views.forgot_password, name='forgot_password'),
