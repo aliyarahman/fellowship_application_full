@@ -182,6 +182,7 @@ def profile(request):
             applicant.communities = form.cleaned_data.get('communities')
             applicant.working_now = form.cleaned_data.get('working_now')
             applicant.school_now = form.cleaned_data.get('school_now')
+            applicant.time_commitment = form.cleaned_data.get('time_commitment')
             applicant.past_applicant = form.cleaned_data.get('past_applicant')
             applicant.referral = form.cleaned_data.get('referral')
             applicant.save()
@@ -205,9 +206,31 @@ def tech(request):
         if form.is_valid():
             user = User.objects.get(id = request.user.id)
             applicant = user.applicant
-            applicant.tech1 = form.cleaned_data.get('tech1')
-            applicant.tech2 = form.cleaned_data.get('tech2')
-            applicant.tech3 = form.cleaned_data.get('tech3')
+            applicant.tech1b = form.cleaned_data.get('tech1b')
+            applicant.tech2b = form.cleaned_data.get('tech2b')
+            applicant.tech3b = form.cleaned_data.get('tech3b')
+            applicant.tech4b = form.cleaned_data.get('tech4b')
+            applicant.tech5b = form.cleaned_data.get('tech5b')
+            applicant.tech6b = form.cleaned_data.get('tech6b')
+            applicant.tech7b = form.cleaned_data.get('tech7b')
+            applicant.tech8b = form.cleaned_data.get('tech8b')
+            applicant.tech9b = form.cleaned_data.get('tech9b')
+            applicant.tech10b = form.cleaned_data.get('tech10b')
+            applicant.tech11b = form.cleaned_data.get('tech11b')
+            applicant.tech12b = form.cleaned_data.get('tech12b')
+            applicant.tech13b = form.cleaned_data.get('tech13b')
+            applicant.tech14b = form.cleaned_data.get('tech14b')
+            applicant.tech15b = form.cleaned_data.get('tech15b')
+            applicant.tech16b = form.cleaned_data.get('tech16b')
+            applicant.tech1s = form.cleaned_data.get('tech1s')
+            applicant.tech2s = form.cleaned_data.get('tech2s')
+            applicant.tech3s = form.cleaned_data.get('tech3s')
+            applicant.tech1c = form.cleaned_data.get('tech1c')
+            applicant.tech2c = form.cleaned_data.get('tech2c')
+            applicant.tech3c = form.cleaned_data.get('tech3c')
+            applicant.tech4c = form.cleaned_data.get('tech4c')
+            applicant.tech5c = form.cleaned_data.get('tech5c')
+
             applicant.save()
             return HttpResponseRedirect(reverse('index'))
     else:
@@ -237,6 +260,11 @@ def shortanswers(request):
             applicant.shortanswer6 = form.cleaned_data.get('shortanswer6')
             applicant.shortanswer7 = form.cleaned_data.get('shortanswer7')
             applicant.shortanswer8 = form.cleaned_data.get('shortanswer8')
+            applicant.shortanswer9 = form.cleaned_data.get('shortanswer9')
+            applicant.shortanswer10 = form.cleaned_data.get('shortanswer10')
+            applicant.shortanswer11 = form.cleaned_data.get('shortanswer11')
+            applicant.shortanswer12 = form.cleaned_data.get('shortanswer12')
+            applicant.shortanswer13 = form.cleaned_data.get('shortanswer13')
             applicant.anything_else = form.cleaned_data.get('anything_else')
             applicant.save()
             return HttpResponseRedirect(reverse('index'))
@@ -352,6 +380,14 @@ def rec_index(request):
     recommendations = recommender.recommendation_set.all()
     return render(request, 'rec_index.html', {'recommender':recommender,'recommendations':recommendations})
 
+@login_required
+def submit_recommendation(request, recommendation_id):
+    recommendation = Recommendation.objects.get(id = recommendation_id)    
+    if request.method == "POST":
+        recommendation.submitted = 1
+        recommendation.save()
+        return HttpResponseRedirect(reverse('rec_index'))
+    return render(request, 'submit_recommendation.html', {'recommendation':recommendation})
 
 @login_required
 def recommend(request, recommendation_id):#pass in the student this is for
@@ -363,15 +399,22 @@ def recommend(request, recommendation_id):#pass in the student this is for
     if request.method == 'POST':
         form = RecommendationForm(request.POST)
         if form.is_valid():
-            recommendation.known_applicant = form.cleaned_data.get('KnownApplicant')
+            recommendation.known_applicant = form.cleaned_data.get('known_applicant')
+            recommendation.commitment_to_justice_rating = form.cleaned_data.get('commitment_to_justice_rating')
+            recommendation.commitment_to_justice = form.cleaned_data.get('commitment_to_justice')
             recommendation.problem_solving_rating = form.cleaned_data.get('problem_solving_rating')
             recommendation.problem_solving = form.cleaned_data.get('problem_solving')
             recommendation.obstacles_rating = form.cleaned_data.get('obstacles_rating')
             recommendation.obstacles = form.cleaned_data.get('obstacles')
-            recommendation.community_rating = form.cleaned_data.get('community_rating')
-            recommendation.community = form.cleaned_data.get('community')
-            recommendation.accomodations_rating = form.cleaned_data.get('accomodations_rating')
-            recommendation.accomodations = form.cleaned_data.get('accomodations')
+            recommendation.teaching_rating = form.cleaned_data.get('teaching_rating')
+            recommendation.teaching = form.cleaned_data.get('teaching')
+            recommendation.community = form.cleaned_data.get('teaching')
+            recommendation.curiosity_rating = form.cleaned_data.get('curiosity_rating')
+            recommendation.curiosity = form.cleaned_data.get('curiosity')
+            recommendation.help_rating = form.cleaned_data.get('help_rating')
+            recommendation.help = form.cleaned_data.get('help')
+            recommendation.accommodations = form.cleaned_data.get('accommodations')
+            recommendation.support = form.cleaned_data.get('support')
             recommendation.anything_else = form.cleaned_data.get('anything_else')
             recommendation.save()
             return HttpResponseRedirect(reverse('rec_index'))

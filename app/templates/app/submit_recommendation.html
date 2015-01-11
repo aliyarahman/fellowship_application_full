@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<h1>Submit this application?</h1>
+<hr class="form">
+
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+
+    <h3> Ready to submit this application? Click 'Confirm'.</h3>
+    <p>You will not be able to edit it once you've clicked submit.</p>
+
+  <div class="form-group"><!-- S XXX-->
+    <br><br>
+    <div class="row">
+      <div onClick='location.href="{% url 'rec_index' %}"' class="btn btn-lg btn-default">
+    Go back
+      </div>
+      <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Confirm &gt; &gt;</button>
+    </div><br><br><br><br><br>
+  </div><!-- E -->
+
+    <br>
+ 
+  </div>
+</div>
+</form>
+<br><br><br><br>
+
+
+
+{% endblock %}

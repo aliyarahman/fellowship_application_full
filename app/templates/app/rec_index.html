@@ -3,43 +3,65 @@
 {% block content %}
 
 
-<h1>Your recommendation dashboard</h1>
-<hr class="form">
-
 <div class="row">
-  <div class="col-xs-10 col-xs-offset-1">
-    <p>Thanks for recommending a 2015 Code for Progress applicant!</p>
-
-    <p>The applicants who have requested your recommendation appear below - just click a name to get started. The button for each applicant will remain white until you've completed their application - when the button turns green, you're done!</p>
-
-    <p>The application deadline is <b>March 15, 2015</b> is the application deadline - so we'll need your recommendations to be submitted by then.</p>
-  </div>
-
+  <h1>Your recommendation dashboard</h1>
+  <hr class="form">
 </div>
 
+<div class="row">
+  <h3> You have{% with total=recommender.num_incomplete_recommendations %} {{ total }} recommendation{{ total|pluralize }}{% endwith %} left to submit.</h3><br>
+</div>
 
-    <br><br>
-    <div class="row center-block">
+{% if recommender.num_incomplete_recommendations == 0 %}
+  <div class="row"
+  <p>You submitted recommendations for:</p>
+  </div>
 
-      {% for recommendation in recommendations %}
-          <div class="col-sm-8 col-sm-offset-2">
-
-              <div>
-                  <button {% if not recommendation.is_complete %}onClick='location.href="{% url 'recommend' recommendation.id %}"'{% endif %} class="btn-block btn btn-lg {% if recommendation.is_complete %}btn-success disabled{% else %}btn-default {% endif %}">{{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</button>
-              </div><br>
-
-          </div>
-      {% endfor %}
-
+  <div class="row">
+    {% for recommendation in recommendations %}
+    <div class="col-xs-offset-1">
+      <p>{{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</p>
     </div>
+    {% endfor %}
+  </div><br>
 
-    <br><br><br><br>
-    {% if recommender.all_recs_complete %}
-        <div><!-- S XXX-->
-          <h3>Thanks for completing your recommendations! You can log back into the site if another applicant requests your assistance.</h3>
+  <div class="row"><!-- S XXX-->
+      <p>Thanks for assisting a Code for Progress applicant! You can log back into the site if another applicant requests your recommendation, which will appear below.</p>
+  </div><!-- E -->
 
-        </div><!-- E -->
-    {% endif %}
+{% else %}
+
+  <div class="row">
+    <p>Thanks for recommending a 2015 Code for Progress applicant!</p>
+
+    <p>The applicants who have requested your recommendation appear below - just click 'Recommend' next to a name to get started, or to return to your previous work. The 'Submit' button for each applicant will remain white until you've completed all questions - when the button turns green, click to send us your finalized recommendation!</p>
+
+    <p>The application deadline is <b>March 15, 2015</b> - so we'll need your recommendations to be submitted by then.</p>
+  </div>
+
+  <br><br>
+  <div class="row center-block">
+
+    {% for recommendation in recommendations %}
+          <div class="row">
+              <div class="col-sm-4 col-sm-offset-1">
+                <hr>
+                <h3>{{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</h3>
+              </div>
+              <div class="col-sm-3">
+                <hr>
+                <button onClick='location.href="{% url 'recommend' recommendation.id %}"'class="btn-block btn btn-lg btn-info">Start/Edit</button>
+              </div>
+              <div class="col-sm-3">
+                <hr>
+                <button {% if recommendation.is_complete %}onClick='location.href="{% url 'submit_recommendation' recommendation.id %}"'{% endif %} class="btn-block btn btn-lg {% if recommendation.is_complete %}btn-success{% else %}btn-default disabled{% endif %}">Submit</button>
+              </div>
+          </div><br>
+    {% endfor %}
+
+{% endif %}
+
+<br><br><br><br><br><br><br>
 
 
 {% endblock %}

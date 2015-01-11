@@ -93,7 +93,7 @@ class Applicant(models.Model):
         return self.user.email
 
     def profile_complete(self):
-        if self.state and self.country and self.zipcode and self.dob and self.phone and self.languages and self.communities and self.working_now and self.school_now and self.time_commitment and self.past_applicant and self.referral:
+        if self.city and self.state and self.country and self.zipcode and self.dob and self.phone and self.languages and self.communities and self.working_now and self.school_now and self.time_commitment and self.past_applicant and self.referral:
             return True
         return False
 
@@ -147,9 +147,21 @@ class Recommender(models.Model):
     def __unicode__(self):
         return self.user.email
 
+    def num_applicants(self):
+        recs = self.recommendation_set.all()
+        return len(recs)
+
     def has_recommendations(self):
         recommendations = self.recommendation_set.all()
         return recommendations
+
+    def num_incomplete_recommendations(self):
+        recommendations = self.recommendation_set.all()
+        counter = 0
+        for r in recommendations:
+            if r.submitted==0:
+                counter+=1
+        return counter
 
     def all_recs_complete(self):
         recommendations = self.recommendation_set.all()
@@ -179,12 +191,13 @@ class Recommendation(models.Model):
     accommodations = models.TextField(null=True, blank=True)
     support = models.TextField(null=True, blank=True)
     anything_else = models.TextField(null=True, blank=True)
+    submitted = models.IntegerField(default=0)
 
     def __unicode__(self):
         return "Recommendation " + str(self.id)
 
     def is_complete(self):
-        if self.known_applicant and self.commitment_to_justice_rating and self.commitment_to_justice and self.problem_solving_rating and self.problem_solving and self.obstacles_rating and self.obstacles and self.teaching_rating and self.teaching and self.curiosity_rating and self.curiosity and self.help_rating and self.help and self.accomodations and self.support:
+        if self.known_applicant and self.commitment_to_justice_rating and self.commitment_to_justice and self.problem_solving_rating and self.problem_solving and self.obstacles_rating and self.obstacles and self.teaching_rating and self.teaching and self.curiosity_rating and self.curiosity and self.help_rating and self.help and self.accommodations and self.support:
             return True
         return False
 
@@ -201,6 +214,15 @@ class Evaluator(models.Model):
     def num_applicants(self):
         evals = self.evaluation_set.all()
         return len(evals)
+
+    def num_incomplete_evaluations(self):
+        evaluations = self.evaluation_set.all()
+        counter = 0
+        for e in evaluations:
+            if not e.is_complete():
+                counter+=1
+        return counter
+
 
     def has_evaluations(self):
         evaluations = self.evaluation_set.all()
