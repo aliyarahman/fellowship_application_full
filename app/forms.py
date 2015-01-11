@@ -6,11 +6,12 @@ from django.forms.extras.widgets import SelectDateWidget
 from django_countries.fields import CountryField
 from django_countries import countries
 
-'''country_choices = "(('',Select...'),"
+places = ()
+select = ('','Select...')
+places +=select,
 for c in countries:
-    country_choices+=str(c)+","
-countries = country_choices[0:-1]
-countries+=")"'''
+    places +=c,
+
 
 def unique_user(form, field):
      users = User.query.filter_by(email=field.data)
@@ -32,7 +33,7 @@ class ProfileForm(Form):
     email = CharField(required=True)
     city = CharField(required=True)
     state = CharField(required=True)
-    country = ChoiceField(required=False, choices=(countries))
+    country = ChoiceField(required=False, choices=places)
     zipcode = CharField(required=True)
     phone = CharField(required=True)
     dob = CharField(required=True)
