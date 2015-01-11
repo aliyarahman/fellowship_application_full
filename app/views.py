@@ -137,7 +137,7 @@ def createaccount(request):
 def applicant_index(request):
     user = User.objects.get(id = request.user.id)
     try:
-        user.applicant
+        applicant = user.applicant
     except:
         return HttpResponseRedirect(reverse('index'))
     if applicant.application_complete():
@@ -149,7 +149,7 @@ def applicant_index(request):
 def applicant_index_complete(request):
     user = User.objects.get(id = request.user.id)
     try:
-        user.applicant
+        applicant = user.applicant
     except:
         return HttpResponseRedirect(reverse('index'))
     if not applicant.application_complete():

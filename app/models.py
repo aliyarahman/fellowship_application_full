@@ -95,22 +95,27 @@ class Applicant(models.Model):
     def profile_complete(self):
         if self.state and self.country and self.zipcode and self.dob and self.phone and self.languages and self.communities and self.working_now and self.school_now and self.time_commitment and self.past_applicant and self.referral:
             return True
+        return False
 
     def tech_questions_complete(self):
         if self.tech1b and self.tech2b and self.tech3b and self.tech4b and self.tech5b and self.tech6b and self.tech7b and self.tech8b and self.tech9b and self.tech10b and self.tech11b and self.tech12b and self.tech13b and self.tech14b and self.tech15b and self.tech16b and self.tech1s and self.tech2s and self.tech3s and self.tech1c and self.tech2c and self.tech3c and self.tech4c and self.tech5c:
             return True
+        return False
 
     def short_answers_complete(self):
         if self.shortanswer1 and self.shortanswer2 and self.shortanswer3 and self.shortanswer4 and self.shortanswer5 and self.shortanswer6 and self.shortanswer7 and self.shortanswer8 and self.shortanswer9 and self.shortanswer10 and self.shortanswer11 and self.shortanswer12 and self.shortanswer13:
             return True
+        return False
 
     def recommenders_complete(self):
         if self.rec1firstname and self.rec1lastname and self.rec1email and self.rec1relationship and self.rec2firstname and self.rec2lastname and self.rec2email and self.rec2relationship and self.rec3firstname and self.rec3lastname and self.rec3email and self.rec3relationship:
             return True
+        return False
 
     def application_complete(self):
-        if self.profile_complete and self.tech_questions_complete and self.short_answers_complete and self.recommenders_complete:
+        if self.profile_complete() and self.tech_questions_complete() and self.short_answers_complete() and self.recommenders_complete():
             return True
+        return False
 
     def num_evaluators(self):
         evals = self.evaluation_set.all()
@@ -200,6 +205,13 @@ class Evaluator(models.Model):
     def has_evaluations(self):
         evaluations = self.evaluation_set.all()
         return evaluations
+
+    def all_evals_complete(self):
+        evaluations = self.evaluation_set.all()
+        for e in evaluations:
+            if not e.is_complete():
+                return False
+        return True
 
 
 

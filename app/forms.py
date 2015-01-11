@@ -6,6 +6,11 @@ from django.forms.extras.widgets import SelectDateWidget
 from django_countries.fields import CountryField
 from django_countries import countries
 
+'''country_choices = "(('',Select...'),"
+for c in countries:
+    country_choices+=str(c)+","
+countries = country_choices[0:-1]
+countries+=")"'''
 
 def unique_user(form, field):
      users = User.query.filter_by(email=field.data)
