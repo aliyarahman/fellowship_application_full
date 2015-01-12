@@ -68,14 +68,17 @@
               <ul><div class="col-md-11">
 
                   {% for recommendation in user.applicant.recommendation_set.all %}
+                  <div class="row">
 
-                      <div class="col-md-4">{{ recommendation.recommender.user.first_name }} {{ recommendation.recommender.user.last_name }}</div>
+                      <div class="col-md-4"><b>{{ recommendation.recommender.user.first_name }} {{ recommendation.recommender.user.last_name }}</b></div>
 
                       {% if not recommendation.submitted %}
-                      <button onClick='location.href="{% url 'edit_recommender_info' recommendation.recommender.id %}"' class="btn btn-lg btn-info">Edit info</button>
-                      <button onClick='location.href="{% url 'send_recommender_reminder' recommendation.recommender.id %}"' class="btn btn-lg btn-success">Send reminder</button>
-                      <button onClick='location.href="{% url 'replace_recommender' recommendation.recommender.id %}"' class="btn btn-lg btn-danger">Replace</button><br>
+                      <span class="col-md-2"><button onClick='location.href="{% url 'edit_recommender_info' recommendation.recommender.id %}"' class="btn btn-lg btn-info btn-block">Edit info</button></span>
+                      <span class="col-md-3"><button onClick='location.href="{% url 'send_recommender_reminder' recommendation.recommender.id %}"' class="btn btn-lg btn-success btn-block">Send reminder</button></span>
+                      <span class="col-md-2"><button onClick='location.href="{% url 'replace_recommender' recommendation.recommender.id %}"' class="btn btn-lg btn-danger btn-block">Replace</button><br></span>
                       {% else %}<span class="text-success">Recommendation received &#x2713;</span>{% endif %}
+                      <br>
+                  </div>
 
                   {% endfor %}
 

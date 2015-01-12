@@ -315,8 +315,12 @@ def finalsubmission(request):
         return HttpResponseRedirect(reverse('index'))
     user = User.objects.get(id = request.user.id)
     if request.method == "POST":
-        user.applicant.application_submitted = 1
-        user.applicant.save()
+        applicant = user.applicant
+        applicant.application_submitted = 1
+        applicant.save()
+        add_recommender(applicant.rec1email, applicant.rec1firstname, applicant.rec1lastname, applicant.rec1relationship, user.applicant)
+        add_recommender(applicant.rec2email, applicant.rec2firstname, applicant.rec2lastname, applicant.rec2relationship, user.applicant)
+        add_recommender(applicant.rec3email, applicant.rec3firstname, applicant.rec3lastname, applicant.rec3relationship, user.applicant)        
         # send email to recommenders
         # send confirmation email to applicant
         return HttpResponseRedirect(reverse('applicant_index'))
@@ -324,13 +328,13 @@ def finalsubmission(request):
 
 
 def add_recommender(email, first_name, last_name, relationship, applicant):
+    applicant = Applicant.objects.get(id = applicant.id)
     recommender = User.objects.filter(email = email).first()
     if not recommender:
         recommender = User(username = email, first_name = first_name, last_name = last_name, email = email, password = generate_password())
         recommender.save()
     r = Recommender(user = recommender, role=2, relationship=relationship)
     r.save()
-    r.applicants.add(applicant)
     recommendation = Recommendation(applicant = applicant, recommender = r)
     recommendation.save()
 
