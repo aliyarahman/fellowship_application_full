@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<h1>Submit this recommendation?</h1>
+<h1>Ready to submit this application?</h1>
 <hr class="form">
 
 <form class="form-horizontal" name="form" action="" method="post">
@@ -12,19 +12,19 @@
   <div class="col-xs-10 col-xs-offset-1">
 
     <h3> Ready to submit? Click 'Confirm'.</h3>
-    <p>You will not be able to edit it once you've clicked submit.</p>
+    <p>You won't be able to edit your work once you've clicked submit, so make sure you've reviewed every section!</p>
 
   <div class="form-group"><!-- S XXX-->
     <br><br>
     <div class="row">
-      <div onClick='location.href="{% url 'rec_index' %}"' class="btn btn-lg btn-default">
+      <div onClick='location.href="{% url 'applicant_index' %}"' class="btn btn-lg btn-default">
     Go back
       </div>
       <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Confirm &gt; &gt;</button>
     </div><br><br><br><br><br>
   </div><!-- E -->
 
-    <br>
+  <br>
  
   </div>
 </div>

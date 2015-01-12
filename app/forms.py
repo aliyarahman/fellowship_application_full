@@ -141,6 +141,13 @@ class ChangeRecommenderForm(Form):
     ref_relationship = CharField(required=True)
 
 
+class EditRecommenderForm(Form):
+    ref_first_name = CharField(required=True)
+    ref_last_name = CharField(required=True)
+    ref_email = EmailField(required=True)
+    ref_relationship = CharField(required=True)
+
+
 class ForgotPasswordForm(Form):
     email = EmailField(required=True)
 

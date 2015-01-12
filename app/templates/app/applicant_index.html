@@ -6,47 +6,82 @@
 <h1>Your application dashboard</h1>
 <hr class="form">
 
-<div class="row">
-  <div class="col-xs-10 col-xs-offset-1"><p>This application has four parts that you need to finish before you can send it to us. The buttons for each section will be white until you finish answering that section's questions - when the button turns green, you're done!</p>
-  
-  <p>You can always change what you've written in a section, even if it's marked green, before you send in your final application. The button for submitting your complete application will turn blue when all of your sections are done.</p>
 
-  <p>The application deadline is <b>March 15, 2015</b> is the application deadline - so we'll need you and your recommenders to complete all of your sections by then.</p>
-  </div>
-</div>
+    {% if user.applicant.application_submitted == 0 %}
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1"><p>This application has four parts that you need to finish before you can send it to us. The buttons for each section will be white until you finish answering that section's questions - when the button turns green, you're done!</p>
+      
+      <p>You can always change what you've written in a section, even if it's marked green, before you send in your final application. The button for submitting your complete application will turn blue when all of your sections are done.</p>
 
-
-    <br><br>
-    <div class="row center-block">
-
-          <ul><div class="col-sm-8 col-sm-offset-2">
-              <div>
-                  <button onClick='location.href="{% url 'profile' %}"' class="btn btn-block btn-lg {% if user.applicant.profile_complete %}btn-success{% else %}btn-default {% endif %}">Profile</button>
-              </div><br>
-
-              <div>
-                  <button onClick='location.href="{% url 'tech' %}"' class="btn btn-block btn-lg {% if user.applicant.tech_questions_complete %}btn-success{% else %}btn-default {% endif %}">Tech experience</button>
-              </div><br>
-
-              <div>
-                  <button onClick='location.href="{% url 'shortanswers' %}"' class="btn-block btn btn-lg {% if user.applicant.short_answers_complete %}btn-success{% else %}btn-default {% endif %}">Short Answers</button>
-              </div><br>
-
-              <div>
-                  <button onClick='location.href="{% url 'recommenders' %}"' class="btn btn-block btn-lg {% if user.applicant.recommenders_complete %}btn-success{% else %}btn-default {% endif %}">Recommenders</button>
-              </div>
-          </div>
-
+      <p>The application deadline is <b>March 15, 2015</b> is the application deadline - so we'll need you and your recommenders to complete all of your sections by then.</p>
+      </div>
     </div>
 
 
+        <br><br>
+        <div class="row center-block">
 
-        <div class="form-group"><!-- S XXX-->
-          <br><br><br><br><br>
-          <div class="col-xs-2 pull-right">
-          <button id="next" type="submit" class="btn btn-lg btn-form pull-right {% if not user.application_complete %}disabled{% else %}btn-success{% endif %}">Submit your final application &gt; &gt;</button>
-          </div><br><br><br>
-        </div><!-- E -->
+              <ul><div class="col-sm-8 col-sm-offset-2">
+                  <div>
+                      <button onClick='location.href="{% url 'profile' %}"' class="btn btn-block btn-lg {% if user.applicant.profile_complete %}btn-success{% else %}btn-default {% endif %}">Profile</button>
+                  </div><br>
 
+                  <div>
+                      <button onClick='location.href="{% url 'tech' %}"' class="btn btn-block btn-lg {% if user.applicant.tech_questions_complete %}btn-success{% else %}btn-default {% endif %}">Tech experience</button>
+                  </div><br>
+
+                  <div>
+                      <button onClick='location.href="{% url 'shortanswers' %}"' class="btn-block btn btn-lg {% if user.applicant.short_answers_complete %}btn-success{% else %}btn-default {% endif %}">Short Answers</button>
+                  </div><br>
+
+                  <div>
+                      <button onClick='location.href="{% url 'recommenders' %}"' class="btn btn-block btn-lg {% if user.applicant.recommenders_complete %}btn-success{% else %}btn-default {% endif %}">Recommenders</button>
+                  </div>
+              </div>
+
+        </div>
+
+
+
+            <div class="form-group"><!-- S XXX-->
+              <br><br><br><br><br>
+              <div class="col-xs-2 pull-right">
+              <button id="next" type="submit" class="btn btn-lg btn-form pull-right {% if not user.applicant.application_complete %}disabled{% else %}btn-info{% endif %}" {% if user.applicant.application_complete %} onClick='location.href="{% url 'finalsubmission' %}"'{% endif %}>Submit your final application &gt; &gt;</button>
+              </div><br><br><br>
+            </div><!-- E -->
+
+    {% else %}
+
+    <div class="row">
+      <div class="col-xs-11 col-offset-xs-1"><p>Thanks for submitting your application for the 2015 Code for Progress fellowship!</p>
+
+      <p>If you need to replace a recommender, update an existing recommender's email address, or send them a reminder and password, you can do that using the controls below.</p>
+
+      <p>Remember that the application deadline is <b>March 15, 2015</b>, so we'll need your recommenders to complete their recommendations by then.</p>
+      </div>
+    </div>
+
+
+        <br><br>
+        <div class="row center-block">
+
+              <ul><div class="col-md-11">
+
+                  {% for recommendation in user.applicant.recommendation_set.all %}
+
+                      <div class="col-md-4">{{ recommendation.recommender.user.first_name }} {{ recommendation.recommender.user.last_name }}</div>
+
+                      {% if not recommendation.submitted %}
+                      <button onClick='location.href="{% url 'edit_recommender_info' recommendation.recommender.id %}"' class="btn btn-lg btn-info">Edit info</button>
+                      <button onClick='location.href="{% url 'send_recommender_reminder' recommendation.recommender.id %}"' class="btn btn-lg btn-success">Send reminder</button>
+                      <button onClick='location.href="{% url 'replace_recommender' recommendation.recommender.id %}"' class="btn btn-lg btn-danger">Replace</button><br>
+                      {% else %}<span class="text-success">Recommendation received &#x2713;</span>{% endif %}
+
+                  {% endfor %}
+
+              </div>
+        </div>
+
+    {% endif %}
 
 {% endblock %}

@@ -83,6 +83,8 @@ class Applicant(models.Model):
     rec3email = models.CharField(max_length=45, null=True, blank=True)
     rec3relationship = models.CharField(max_length=140, null=True, blank=True)
 
+    application_submitted = models.IntegerField(default = 0)
+
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
