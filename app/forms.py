@@ -134,18 +134,11 @@ class EvaluationForm(Form):
     recommend = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=True)
 
 
-class ChangeRecommenderForm(Form):
-    ref_first_name = CharField(required=True)
-    ref_last_name = CharField(required=True)
-    ref_email = EmailField(required=True)
-    ref_relationship = CharField(required=True)
-
-
 class EditRecommenderForm(Form):
-    ref_first_name = CharField(required=True)
-    ref_last_name = CharField(required=True)
-    ref_email = EmailField(required=True)
-    ref_relationship = CharField(required=True)
+    rec_firstname = CharField(required=True)
+    rec_lastname = CharField(required=True)
+    rec_email = EmailField(required=True)
+    rec_relationship = CharField(required=True)
 
 
 class ForgotPasswordForm(Form):

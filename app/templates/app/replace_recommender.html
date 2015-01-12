@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div><!-- Form Start-->
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+
+<h1 class="nopadding">Replace {{recommender.user.first_name}} {{recommender.user.last_name}}</h1>
+<hr class="form">
+
+  <p>Please enter info for you new recommender. Once you click 'Save new recommender', we'll remove {{recommender.user.first_name}} {{recommender.user.last_name}} from our system and send a login email to your new recommender with instruction on how to submit their recommendation by March 15. </b></p>
+
+
+
+    <br><br>
+    <h3>New recommender info</h3>
+    <hr class="form">
+    <br>
+        <div class="form-group"><!-- S -->
+          <label class="col-md-4 control-label pull-left">First/given names</label>
+          <div class="col-md-4">
+          {% render_field form.rec_firstname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-md-4 control-label pull-left">Last/family names</label>
+          <div class="col-md-4">
+          {% render_field form.rec_lastname class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-md-4 control-label pull-left">Email</label>
+          <div class="col-md-4">
+          {% render_field form.rec_email class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+        <div class="form-group"><!-- S -->
+          <label class="col-md-4 control-label pull-left">How do you know this recommender?</label>
+          <div class="col-md-4">
+          {% render_field form.rec_relationship class+="form-control" %}
+          </div>
+        </div><!-- E -->
+
+
+    <br><br>
+
+        <div class="form-group"><!-- S XXX-->
+            <br><br>
+          <div class="col-md-6 col-md-offset-6">
+            <div onClick='location.href="{% url 'applicant_index' %}"' class="btn btn-lg btn-default">
+          Cancel
+        </div>
+            <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Save new recommender and send email &gt; &gt;</button>
+          </div><br><br><br><br><br>
+        </div><!-- E -->
+  
+   
+    
+</form><!-- Form End-->
+</div><!-- Form End-->
+
+
+{% endblock %}

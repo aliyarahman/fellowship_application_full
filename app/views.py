@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 from app.models import Applicant, Evaluator, Recommender, Staff, Recommendation, Evaluation
-from app.forms import ForgotPasswordForm, ResetPasswordForm, CreateAccountForm, ProfileForm, TechForm, ShortAnswersForm, RecommendersForm, EditRecommenderForm, ChangeRecommenderForm, RecommendationForm, EvaluationForm, AssignEvaluatorForm
+from app.forms import ForgotPasswordForm, ResetPasswordForm, CreateAccountForm, ProfileForm, TechForm, ShortAnswersForm, RecommendersForm, EditRecommenderForm, RecommendationForm, EvaluationForm, AssignEvaluatorForm
 from django.core.mail import send_mail
 
 
@@ -346,23 +346,26 @@ def replace_recommender(request, recommender_id):
     except:
         return HttpResponseRedirect(reverse('index'))
     user = User.objects.get(id = request.user.id)
+    applicant = user.applicant
     recommender = Recommender.objects.get(id = recommender_id)
     if request.method == "POST":
-        form = ChangeRecommenderForm(data=request.POST)
+        form = EditRecommenderForm(data=request.POST)
         if form.is_valid():
-            recommender.delete()
-            new_first_name = form.cleaned_data.get('ref_first_name')
-            last_name = form.cleaned_data.get('ref_last_name')
-            email = form.cleaned_data.get('ref_email')
-            relationship = form.cleaned_data.get('ref_relationship')
+            recommendation = Recommendation.objects.filter(recommender = recommender, applicant = applicant).first()
+            #recommendation.delete()
+            first_name = form.cleaned_data.get('rec_firstname')
+            last_name = form.cleaned_data.get('rec_lastname')
+            email = form.cleaned_data.get('rec_email')
+            relationship = form.cleaned_data.get('rec_relationship')
             add_recommender(email, first_name, last_name, relationship, user.applicant)
+            # Send email to new recommender
             return HttpResponseRedirect(reverse('applicant_index'))
     else:
         applicant = user.applicant
         applicantinfo = model_to_dict(applicant)
         recommenderinfo = model_to_dict(recommender)
         allinfo = dict(applicantinfo.items() + recommenderinfo.items())
-        form = ChangeRecommenderForm(initial=allinfo)
+        form = EditRecommenderForm(initial=allinfo)
     return render(request, "replace_recommender.html", {'form' : form, 'recommender' : recommender})
 
 
@@ -374,12 +377,12 @@ def edit_recommender_info(request, recommender_id):
     user = User.objects.get(id = request.user.id)
     recommender = Recommender.objects.get(id = recommender_id)
     if request.method == "POST":
-        form = ChangeRecommenderForm(data=request.POST)
+        form = EditRecommenderForm(data=request.POST)
         if form.is_valid():
-            recommender.user.first_name = form.cleaned_data.get('ref_first_name')
-            recommender.user.last_name = form.cleaned_data.get('ref_last_name')
-            recommender.user.email = form.cleaned_data.get('ref_email')
-            recommender.relationship = form.cleaned_data.get('ref_relationship')
+            recommender.user.first_name = form.cleaned_data.get('rec_firstname')
+            recommender.user.last_name = form.cleaned_data.get('rec_lastname')
+            recommender.user.email = form.cleaned_data.get('rec_email')
+            recommender.relationship = form.cleaned_data.get('rec_relationship')
             recommender.save()
             return HttpResponseRedirect(reverse('applicant_index'))
     else:
