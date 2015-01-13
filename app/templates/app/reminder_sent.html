@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div><!-- Form Start-->
+
+<h1 class="nopadding">Reminder sent</h1>
+<hr class="form">
+
+    <br><br>
+        <div class="form-group"><!-- S -->
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+            Your reminder email has been sent.
+            </div>
+          </div>
+        </div><!-- E -->
+
+
+        <div class="form-group"><!-- S XXX-->
+            <br>
+          <div class="col-md-8 col-md-offset-1">
+            <button class="btn btn-lg btn-form btn-success" onClick='location.href="{% url 'applicant_index' %}"'>Back to dashboard &gt; &gt;</button>
+          </div><br><br><br><br><br>
+        </div><!-- E -->
+  
+   
+</div><!-- Form End-->
+
+
+{% endblock %}

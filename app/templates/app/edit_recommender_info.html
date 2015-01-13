@@ -7,15 +7,14 @@
 <form class="form-horizontal" name="form" action="" method="post">
 {% csrf_token %}
 
-<h1 class="nopadding">Replace {{recommender.user.first_name}} {{recommender.user.last_name}}</h1>
+<h1 class="nopadding">Edit {{recommender.user.first_name}} {{recommender.user.last_name}}'s info</h1>
 <hr class="form">
 
-  <p>Please enter info for you new recommender. Once you click 'Save new recommender', we'll remove {{recommender.user.first_name}} {{recommender.user.last_name}} from our system and send a login email to your new recommender with instruction on how to submit their recommendation by March 15. </b></p>
+  <p>Please enter any updated/corrected info here. If you want to send a new login email, you can do that from your dashboard screen after you save these changes.</b></p>
 
 
 
     <br><br>
-    <h3>New recommender info</h3>
     <hr class="form">
     <br>
         <div class="form-group"><!-- S -->
@@ -55,7 +54,7 @@
             <div onClick='location.href="{% url 'applicant_index' %}"' class="btn btn-lg btn-default">
           Cancel
         </div>
-            <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Save new recommender and send email &gt; &gt;</button>
+            <button id="next" type="submit" class="btn btn-lg btn-form btn-success">Save changes &gt; &gt;</button>
           </div><br><br><br><br><br>
         </div><!-- E -->
   

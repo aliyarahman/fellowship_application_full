@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div><!-- Form Start-->
+<form class="form-horizontal" name="form" action="" method="post">
+{% csrf_token %}
+
+<h1 class="nopadding">Send reminder to {{recommender.user.first_name}} {{recommender.user.last_name}}</h1>
+<hr class="form">
+
+
+    <br><br>
+    <br>
+        <div class="form-group"><!-- S -->
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+            Send a reminder email and password with login instructions to {{recommender.user.first_name}} {{recommender.user.last_name}} at <b>{{recommender.user.email}}</b>?
+            </div>
+          </div>
+        </div><!-- E -->
+
+
+        <div class="form-group"><!-- S XXX-->
+            <br><br>
+          <div class="col-md-8 col-md-offset-1">
+            <div onClick='location.href="{% url 'applicant_index' %}"' class="btn btn-lg btn-default">
+          Cancel
+        </div>
+            <button id="next" type="submit" class="btn btn-lg btn-form btn-success" onClick='location.href="{% url 'reminder_sent' %}"'>Send reminder now &gt; &gt;</button>
+          </div><br><br><br><br><br>
+        </div><!-- E -->
+  
+   
+    
+</form><!-- Form End-->
+</div><!-- Form End-->
+
+
+{% endblock %}

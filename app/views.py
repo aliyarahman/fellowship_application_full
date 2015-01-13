@@ -402,7 +402,8 @@ def send_recommender_reminder(request, recommender_id):
     if request.method == "POST":
         pass
         #send_email
-    return render(request, "send_recommender_reminder.html")
+        return HttpResponseRedirect(reverse('reminder_sent'))
+    return render(request, "send_recommender_reminder.html", {'recommender': recommender})
 
 
 @login_required
