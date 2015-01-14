@@ -3,59 +3,26 @@
 {% block content %}
 
 <br>
-<h1>Welcome to the application portal for the Code for Progress 2015 Fellowship</h1>
+<h1>Welcome to the Code for Progress 2015 Fellowship application portal</h1>
 <br>
  
-
-<!-- 
 <br>
-<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          View application requirements <span class="glyphicon glyphicon-chevron-right" style="font-size:10px"></span></a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-      <div class="panel-body">
-      
-      <h2>Application requirements for the 2015 fellowship</h2>
-
-      <ul>
-      <li>Criteria 1</li>
-      <li>Criteria 2</li>
-      <li>Criteria 3</li>
-      <li>Criteria 4</li>
-      </ul>
-
-      <p><strong>Applicants understand that _____.</strong>  </p>
-
-      <p>The application closes on <strong>____, 2015, at 11:59pm Pacific time.</strong>. You and your recommenders should both submit your application parts by that day. After our selection completes their review, we will begin to notify round 2 applicants in <strong>____, 2015.</strong></p>
-
-
-      </div>
-    </div>
-  </div>
-</div> -->
-
-    <br>
 
     <div class="row">
 
-      <div class="col-md-6">
+      <div class="col-sm-6">
          <hr>
          <h3>Start a new application</h3>
          <hr>
            <br>
-           <div class="col-md-6 col-md-offset-2">
+           <div class="col-sm-6 col-sm-offset-2">
               <button class="btn btn-lg btn-login btn-block" onClick='location.href="{% url 'createaccount' %}"'>Begin >></button><br><br><br>
            </div>
       </div>
 
 
 
-      <div class="col-md-6">
+      <div class="col-sm-6">
          <hr>
          <h3>Already started an application or here to complete a recommendation? Log in below.</h3>
 		     <hr><br>
@@ -63,19 +30,19 @@
               {% csrf_token %}
 
                 	  <div class="form-group">
-                       <div class="col-xs-6 col-xs-offset-2">
+                       <div class="col-sm-6 col-sm-offset-2">
                          {% render_field form.username class+="form-control text" placeholder="Username" %}
                        </div>
                     </div>
 
                     <div class="form-group">
-                      <div class="col-xs-6 col-xs-offset-2">
+                      <div class="col-sm-6 col-sm-offset-2">
                          {% render_field form.password class+="form-control" placeholder="Password" %}
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <div class="col-xs-offset-2 col-xs-6">
+                      <div class="col-sm-offset-2 col-sm-6">
                       {% if form.errors %}
                   		<p class="text-danger">Hmm, that's not the right username / password.<br /></p>
                   		{% endif %}
@@ -84,8 +51,8 @@
                     </div>
               
                     <div class="form-group">
-                      <div class="col-xs-offset-2 col-xs-6">
-                      	<a href="{% url 'forgot_password' %}" class="forgot">Forgot your password?</a>
+                      <div class="col-sm-offset-2 col-sm-6">
+                      	<a href="{% url 'forgot_password' %}" class="forgot">Forgot your password?</a><br><br><br><br>
                       </div>
                     </div>
 

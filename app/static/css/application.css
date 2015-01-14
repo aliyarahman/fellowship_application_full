@@ -83,8 +83,9 @@ h1, h2, h3, h4, h5, a, label, b, strong {
 
 .footer {
   width: 100%;
-  height: 300px;
-  padding-top:50px;
+  height: auto;
+  padding-top: 50px;
+  padding-bottom: 20px;
   background-color: #21204A;
   color: white;
   }
