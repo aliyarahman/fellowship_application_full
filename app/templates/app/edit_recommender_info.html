@@ -12,36 +12,34 @@
 
   <p>Please enter any updated/corrected info here. If you want to send a new login email, you can do that from your dashboard screen after you save these changes.</b></p>
 
-
-
     <br><br>
     <hr class="form">
     <br>
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">First/given names</label>
           <div class="col-md-4">
-          {% render_field form.rec_firstname class+="form-control" %}
+          {% render_field form.first_name class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">Last/family names</label>
           <div class="col-md-4">
-          {% render_field form.rec_lastname class+="form-control" %}
+          {% render_field form.last_name class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">Email</label>
           <div class="col-md-4">
-          {% render_field form.rec_email class+="form-control" %}
+          {% render_field form.email class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">How do you know this recommender?</label>
           <div class="col-md-4">
-          {% render_field form.rec_relationship class+="form-control" %}
+          {% render_field form.relationship class+="form-control" %}
           </div>
         </div><!-- E -->
 

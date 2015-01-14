@@ -135,10 +135,10 @@ class EvaluationForm(Form):
 
 
 class EditRecommenderForm(Form):
-    rec_firstname = CharField(required=True)
-    rec_lastname = CharField(required=True)
-    rec_email = EmailField(required=True)
-    rec_relationship = CharField(required=True)
+    first_name = CharField(required=True)
+    last_name = CharField(required=True)
+    email = EmailField(required=True)
+    relationship = CharField(required=True)
 
 
 class ForgotPasswordForm(Form):

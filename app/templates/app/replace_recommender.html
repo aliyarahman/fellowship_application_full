@@ -10,39 +10,43 @@
 <h1 class="nopadding">Replace {{recommender.user.first_name}} {{recommender.user.last_name}}</h1>
 <hr class="form">
 
-  <p>Please enter info for you new recommender. Once you click 'Save new recommender', we'll remove {{recommender.user.first_name}} {{recommender.user.last_name}} from our system and send a login email to your new recommender with instruction on how to submit their recommendation by March 15. </b></p>
+  <p>Please enter your new recommender's information. Once you click 'Save new recommender', we'll remove {{recommender.user.first_name}} {{recommender.user.last_name}} from our system and send a login email to your new recommender with instruction on how to submit their recommendation by March 15. </b></p>
 
 
 
     <br><br>
-    <h3>New recommender info</h3>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>New recommender info</h3>
+      </div>
+    </div>
     <hr class="form">
     <br>
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">First/given names</label>
           <div class="col-md-4">
-          {% render_field form.rec_firstname class+="form-control" %}
+          {% render_field form.first_name class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">Last/family names</label>
           <div class="col-md-4">
-          {% render_field form.rec_lastname class+="form-control" %}
+          {% render_field form.last_name class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">Email</label>
           <div class="col-md-4">
-          {% render_field form.rec_email class+="form-control" %}
+          {% render_field form.email class+="form-control" %}
           </div>
         </div><!-- E -->
 
         <div class="form-group"><!-- S -->
           <label class="col-md-4 control-label pull-left">How do you know this recommender?</label>
           <div class="col-md-4">
-          {% render_field form.rec_relationship class+="form-control" %}
+          {% render_field form.relationship class+="form-control" %}
           </div>
         </div><!-- E -->
 

@@ -12,6 +12,7 @@ from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 from app.models import Applicant, Evaluator, Recommender, Staff, Recommendation, Evaluation
 from app.forms import ForgotPasswordForm, ResetPasswordForm, CreateAccountForm, ProfileForm, TechForm, ShortAnswersForm, RecommendersForm, EditRecommenderForm, RecommendationForm, EvaluationForm, AssignEvaluatorForm
+from app.emails import application_created, forgot_password, application_received, recommendation_requested, recommendation_request_sent, recommendation_received
 from django.core.mail import send_mail
 
 
@@ -72,6 +73,7 @@ def reset_password(request):
             new_password = form.cleaned_data.get('password')
             user.set_password(new_password)
             user.save()
+            forgot_password(user.id)
             return HttpResponseRedirect(reverse('index'))
     else:
         form = ResetPasswordForm()
@@ -127,6 +129,7 @@ def createaccount(request):
             applicant.save()
             user = authenticate(username=username, password=password)
             login(request, user)
+            application_created(user.id)
             return HttpResponseRedirect(reverse('index'))
     else:
         form = CreateAccountForm()
@@ -141,18 +144,6 @@ def applicant_index(request):
     except:
         return HttpResponseRedirect(reverse('index'))
     return render(request, 'applicant_index.html', {'user': user})
-
-
-@login_required
-def applicant_index_complete(request):
-    user = User.objects.get(id = request.user.id)
-    try:
-        applicant = user.applicant
-    except:
-        return HttpResponseRedirect(reverse('index'))
-    if not applicant.application_complete():
-        return HttpResponseRedirect(reverse('applicant_index'))
-    return render(request, 'applicant_index_complete.html', {'user': user})
 
 
 @login_required
@@ -321,8 +312,7 @@ def finalsubmission(request):
         add_recommender(applicant.rec1email, applicant.rec1firstname, applicant.rec1lastname, applicant.rec1relationship, user.applicant)
         add_recommender(applicant.rec2email, applicant.rec2firstname, applicant.rec2lastname, applicant.rec2relationship, user.applicant)
         add_recommender(applicant.rec3email, applicant.rec3firstname, applicant.rec3lastname, applicant.rec3relationship, user.applicant)        
-        # send email to recommenders
-        # send confirmation email to applicant
+        application_received(user.id)
         return HttpResponseRedirect(reverse('applicant_index'))
     return render(request, 'finalsubmission.html')
 
@@ -335,6 +325,7 @@ def add_recommender(email, first_name, last_name, relationship, applicant):
         recommender.save()
     r = Recommender(user = recommender, role=2, relationship=relationship)
     r.save()
+    recommendation_requested(applicant.user.id, r.id)
     recommendation = Recommendation(applicant = applicant, recommender = r)
     recommendation.save()
 
@@ -352,20 +343,17 @@ def replace_recommender(request, recommender_id):
         form = EditRecommenderForm(data=request.POST)
         if form.is_valid():
             recommendation = Recommendation.objects.filter(recommender = recommender, applicant = applicant).first()
-            #recommendation.delete()
-            first_name = form.cleaned_data.get('rec_firstname')
-            last_name = form.cleaned_data.get('rec_lastname')
-            email = form.cleaned_data.get('rec_email')
-            relationship = form.cleaned_data.get('rec_relationship')
+            recommendation.delete()
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            email = form.cleaned_data.get('email')
+            relationship = form.cleaned_data.get('relationship')
             add_recommender(email, first_name, last_name, relationship, user.applicant)
-            # Send email to new recommender
+            new_recommender = Recommender.objects.filter(email = email).first()
+            recommendation_request_sent(user.id, new_recommender.id)
             return HttpResponseRedirect(reverse('applicant_index'))
     else:
-        applicant = user.applicant
-        applicantinfo = model_to_dict(applicant)
-        recommenderinfo = model_to_dict(recommender)
-        allinfo = dict(applicantinfo.items() + recommenderinfo.items())
-        form = EditRecommenderForm(initial=allinfo)
+        form = EditRecommenderForm()
     return render(request, "replace_recommender.html", {'form' : form, 'recommender' : recommender})
 
 
@@ -379,15 +367,18 @@ def edit_recommender_info(request, recommender_id):
     if request.method == "POST":
         form = EditRecommenderForm(data=request.POST)
         if form.is_valid():
-            recommender.user.first_name = form.cleaned_data.get('rec_firstname')
-            recommender.user.last_name = form.cleaned_data.get('rec_lastname')
-            recommender.user.email = form.cleaned_data.get('rec_email')
-            recommender.relationship = form.cleaned_data.get('rec_relationship')
+            recommender.user.first_name = form.cleaned_data.get('first_name')
+            recommender.user.last_name = form.cleaned_data.get('last_name')
+            recommender.user.email = form.cleaned_data.get('email')
+            recommender.relationship = form.cleaned_data.get('relationship')
             recommender.save()
+            recommender.user.save()
             return HttpResponseRedirect(reverse('applicant_index'))
     else:
-        recommenderinfo = model_to_dict(recommender)
-        form = EditRecommenderForm(initial=recommenderinfo)
+        recommender_user_info = model_to_dict(recommender.user)
+        recommender_info = model_to_dict(recommender)
+        allinfo = dict(recommender_user_info.items() + recommender_info.items())
+        form = EditRecommenderForm(initial=allinfo)
     return render(request, "edit_recommender_info.html", {'form': form, 'recommender': recommender})
 
 @login_required
@@ -400,8 +391,8 @@ def send_recommender_reminder(request, recommender_id):
     applicant = user.applicant
     recommender = Recommender.objects.get(id = recommender_id)
     if request.method == "POST":
-        pass
-        #send_email
+        recommendation_requested(user.id, recommender.id)
+        recommendation_request_sent(user.id, recommender.id)
         return HttpResponseRedirect(reverse('reminder_sent'))
     return render(request, "send_recommender_reminder.html", {'recommender': recommender})
 
@@ -430,18 +421,20 @@ def rec_index(request):
     recommendations = recommender.recommendation_set.all()
     return render(request, 'rec_index.html', {'recommender':recommender,'recommendations':recommendations})
 
+
 @login_required
 def submit_recommendation(request, recommendation_id):
     recommendation = Recommendation.objects.get(id = recommendation_id)    
     if request.method == "POST":
         recommendation.submitted = 1
         recommendation.save()
-        # Send confirmation email to recommender
+        recommendation_received(recommendation.applicant.id, recommendation.recommender.id)
         return HttpResponseRedirect(reverse('rec_index'))
     return render(request, 'submit_recommendation.html', {'recommendation':recommendation})
 
+
 @login_required
-def recommend(request, recommendation_id):#pass in the student this is for
+def recommend(request, recommendation_id):
     try:
         request.user.recommender
     except:

@@ -21,6 +21,10 @@ body {
   color: #AEBE37;
   }
 
+.white-text {
+  color: #FFFFFF;
+  }
+
 .green-background {
   background-color: #AEBE37;
   border-color: #AEBE37;
@@ -75,7 +79,7 @@ h1, h2, h3, h4, h5, a, label, b, strong {
 
 .footer {
   width: 100%;
-  height: 100px;
+  height: 300px;
   padding-top:50px;
   background-color: #21204A;
   color: white;
