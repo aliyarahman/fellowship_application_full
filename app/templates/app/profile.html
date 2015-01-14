@@ -13,84 +13,84 @@
 
     <div class="form-group"><!-- S -->
       <label class="col-sm-4 control-label left">First/given names</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.first_name class+="form-control" %}
       </div>
     </div><!-- E -->
     
     <div class="form-group"><!-- S -->
       <label class="col-sm-4 control-label left">Last/family names</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.last_name class+="form-control" %}
       </div>
     </div><!-- E -->
 
      <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Current city</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.city class+="form-control" %}
       </div>
     </div><!-- E -->  
     
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Current state</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.state class+="form-control" %}
       </div>
     </div><!-- E --> 
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Current country</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.country class+="form-control" %}
       </div>
     </div><!-- E -->
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label">Zip</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.zipcode class+="form-control" %}
       </div>
     </div><!-- E --> 
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Phone</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.phone class+="form-control" %}
       </div>
     </div><!-- E --> 
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Date of Birth</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.dob class+="form-control" placeholder="mm/dd/yyyy" %}
       </div>
     </div><!-- E -->
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label">Code for Progress focuses on training coders from communities historically excluded from the tech industry. Do you identify as part of any of these communities, and if so what are they?</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.communities class+="form-control" %}
       </div>
     </div><!-- E -->
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">What languages do you speak, and how well do you speak them?</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.languages class+="form-control" %}
       </div>
     </div><!-- E -->
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.working_now class+="form-control" %}
       </div>
     </div><!-- E -->
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Are you in a trade school, college, or university program right now, or have you been in one in the past? If so, what certificate or degree did/will you receive, and will you still be in the program in June of 2015 year?</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.school_now class+="form-control" %}
       </div>
     </div><!-- E -->  
@@ -99,7 +99,7 @@
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Learning coding skills and meeting people in the field often means late nights of practice and evening/weekend events - usually adding up to more than 40 hours a week of devoted time. If you are accepted, what will you do to create space for this program in your life, so that you can move to DC and stay focused during the residency?
 </label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.time_commitment class+="form-control" %}
       </div>
     </div><!-- E -->  
@@ -107,7 +107,7 @@
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Have you applied to the Code for Progress fellowship before?</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.past_applicant class+="form-control" %}
       </div>
     </div>
@@ -116,7 +116,7 @@
       <div class="col-sm-4">
       <label class="control-label left">How did you learn about the fellowship?</label>
       </div>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
       {% render_field form.referral class+="form-control" %}
       </div>
     </div><!-- E --><br><br>
@@ -126,20 +126,20 @@
     <hr class="form">
     <div class="form-group"><!-- S -->
       <label class="col-sm-4 control-label">Email</label>
-      <div class="col-xs-2 control-label ">
+      <div class="col-sm-2 control-label ">
           <p>{{user.email}}</p>
       </div>
     </div><!-- E -->
     <div class="form-group"><!-- S -->
       <label for="password" class="col-sm-4 control-label left">Password</label>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
         <div onClick="location.href='{% url 'reset_password' %}'" class="btn btn-primary">Change password</div>
       </div>
     </div><!-- E -->
 
         <div class="form-group"><!-- S XXX-->
             <br><br>
-          <div class="col-xs-4 col-xs-offset-8">
+          <div class="col-sm-4 col-sm-offset-8">
             <div onClick='location.href="{% url 'index' %}"' class="btn btn-lg btn-default">
           Cancel
             </div>

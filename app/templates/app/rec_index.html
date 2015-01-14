@@ -4,39 +4,49 @@
 
 
 <div class="row">
-  <h1>Your recommendation dashboard</h1>
-  <hr class="form">
+  <div class="col-xs-12">
+    <h1>Your recommendation dashboard</h1>
+    <hr class="form">
+  </div>
 </div>
 
 <div class="row">
+  <div class="col-xs-12">
   <h3> You have{% with total=recommender.num_incomplete_recommendations %} {{ total }} recommendation{{ total|pluralize }}{% endwith %} left to submit.</h3><br>
+  </div>
 </div>
 
 {% if recommender.num_incomplete_recommendations == 0 %}
-  <div class="row"
-  <p>You submitted recommendations for:</p>
+  <div class="row">
+  <div class="col-xs-12">
+    <p>You submitted recommendations for:</p>
+  </div>
   </div>
 
   <div class="row">
     {% for recommendation in recommendations %}
     <div class="col-xs-offset-1">
-      <p>{{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</p>
+      <p><b>{{recommendation.applicant.user.first_name}} {{recommendation.applicant.user.last_name}}</b></p>
     </div>
     {% endfor %}
-  </div><br>
+  </div><br><br>
 
   <div class="row"><!-- S XXX-->
-      <p>Thanks for assisting a Code for Progress applicant! You can log back into the site if another applicant requests your recommendation, which will appear below.</p>
+      <div class="col-xs-12">
+        <p>Thanks for assisting a Code for Progress applicant! You can log back into the site if another applicant requests your recommendation, which will appear below.</p>
+      </div>
   </div><!-- E -->
 
 {% else %}
 
   <div class="row">
-    <p>Thanks for recommending a 2015 Code for Progress applicant!</p>
+    <div class="col-xs-12">
+      <p>Thanks for recommending a 2015 Code for Progress applicant!</p>
 
-    <p>The applicants who have requested your recommendation appear below - just click 'Recommend' next to a name to get started, or to return to your previous work. The 'Submit' button for each applicant will remain white until you've completed all questions - when the button turns green, click to send us your finalized recommendation!</p>
+      <p>The applicants who have requested your recommendation appear below - just click 'Recommend' next to a name to get started, or to return to your previous work. The 'Submit' button for each applicant will remain white until you've completed all questions - when the button turns green, click to send us your finalized recommendation!</p>
 
-    <p>The application deadline is <b>March 15, 2015</b> - so we'll need your recommendations to be submitted by then.</p>
+      <p>The application deadline is <b>March 15, 2015</b> - so we'll need your recommendations to be submitted by then.</p>
+    </div>
   </div>
 
   <br><br>
