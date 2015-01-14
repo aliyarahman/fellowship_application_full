@@ -11,11 +11,11 @@ def application_created(user_id):
     send_mail(subject, body_text, 'Code for Progress', [user.email], fail_silently=False)
 
 
-def forgot_password(user_id):
+def password_sent(user_id, password):
     user = User.objects.get(id = user_id)
     subject = "Your new account password"
     signature = "\n\n\nThe Code for Progress team\n\n\nCode for Progress\nwww.codeforprogress.org\n(202) 817-2633\n\n1220 L Street NW, Suite 100-513\nWashington, DC 20005"
-    body_text = "Hi "+user.first_name+",\n\nHere's a new password that you can use to log into the Code for Progress fellowship application portal (apply.codeforprogress.org). Once you're logged in, you can reset your password to something that's easier to remember.\n\n\tUsername: "+user.email+"\n\tPassword: "+user.password+"\n\nWe look forward to reading your submission,"+signature
+    body_text = "Hi "+user.first_name+",\n\nHere's a new password that you can use to log into the Code for Progress fellowship application portal (apply.codeforprogress.org). Once you're logged in, you can reset your password to something that's easier to remember.\n\n\tUsername: "+user.email+"\n\tPassword: "+password+"\n\nWe look forward to reading your submission,"+signature
     send_mail(subject, body_text, 'Code for Progress', [user.email], fail_silently=False)
 
 

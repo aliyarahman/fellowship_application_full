@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 from app.models import Applicant, Evaluator, Recommender, Staff, Recommendation, Evaluation
 from app.forms import ForgotPasswordForm, ResetPasswordForm, CreateAccountForm, ProfileForm, TechForm, ShortAnswersForm, RecommendersForm, EditRecommenderForm, RecommendationForm, EvaluationForm, AssignEvaluatorForm
-from app.emails import application_created, forgot_password, application_received, recommendation_requested, recommendation_request_sent, recommendation_received
+from app.emails import application_created, password_sent, application_received, recommendation_requested, recommendation_request_sent, recommendation_received
 from django.core.mail import send_mail
 
 
@@ -34,8 +34,11 @@ def logout_view(request):
 
 
 def forgot_password(request):
-    if user.is_authenticated:
-        return HttpResponseRedirect(reverse('index'))
+    try:
+        if user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
+    except:
+        pass
     if request.method == "POST":
         form = ForgotPasswordForm(data=request.POST)
         if form.is_valid():
@@ -45,8 +48,7 @@ def forgot_password(request):
                 new_password = generate_password()
                 user.set_password(new_password)
                 user.save()
-                message_text = "Your Code for Progress application portal password has been reset. Please go to http://apply.codeforprogress.org and use the following information to log in. You can change your password once you've successfully logged in using your temporary password.\n\n\tUsername: "+email+"\n\tPassword: "+new_password+"\n\nThe Code for Progress team"
-                send_mail('Your temporary password', message_text, 'Code for Progress', [email], fail_silently=False)
+                password_sent(user.id, new_password)
             return HttpResponseRedirect(reverse('forgot_password_confirmation'))
     else:
         form = ForgotPasswordForm()
@@ -54,8 +56,11 @@ def forgot_password(request):
 
 
 def forgot_password_confirmation(request):
-    if user.is_authenticated:
-        return HttpResponseRedirect(reverse('index'))
+    try:
+        if user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
+    except:
+        pass
     return render(request, 'forgot_password_confirmation.html')
 
 
