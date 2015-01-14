@@ -125,9 +125,9 @@
     <h3 class="nopadding">Login information</h3>
     <hr class="form">
     <div class="form-group"><!-- S -->
-      <label for="email" class="col-sm-4 control-label left">Email</label>
-      <div class="col-xs-4">
-      {% render_field form.email class+="form-control" %}
+      <label class="col-sm-4 control-label">Email</label>
+      <div class="col-xs-2 control-label ">
+          <p>{{user.email}}</p>
       </div>
     </div><!-- E -->
     <div class="form-group"><!-- S -->

@@ -1,11 +1,13 @@
 from django import forms
 from django.forms import CharField, Form, PasswordInput, IntegerField, ChoiceField, BooleanField, FileField, Textarea, RadioSelect, EmailField, DateField, FileField
 from django.contrib.auth.models import User
-from app.models import User, Recommendation, Evaluation
+from app.models import User, Applicant, Recommendation, Evaluation
 from django.forms.extras.widgets import SelectDateWidget
 from django_countries.fields import CountryField
 from django_countries import countries
 
+
+# Adds the 'Select' placeholder to fields using countries
 places = ()
 select = ('','Select...')
 places +=select,
@@ -13,16 +15,10 @@ for c in countries:
     places +=c,
 
 
-def unique_user(form, field):
-     users = User.query.filter_by(email=field.data)
-     if users and users.count() > 0:
-         raise ValidationError('The email address you provided is already in use.')
-
-
 class CreateAccountForm(Form):
     first_name = CharField(required=True)
     last_name = CharField(required=True)
-    email = CharField(required=True)
+    email = EmailField(required=True)
     password = CharField(widget=PasswordInput(), required=True)
     retype_password = CharField(widget=PasswordInput(), required=True)
 
@@ -32,6 +28,22 @@ class CreateAccountForm(Form):
         if len(self.data['password'])<8:
             raise forms.ValidationError("Please enter a password that's at least 8 characters long.")
         return self.data['password']
+
+    def clean_email(self):
+        email = self.data['email']
+        user = User.objects.filter(email = email).first()
+        try:
+            if user.recommender:
+                raise forms.ValidationError("This email address is already associated with a recommender's account. We ask that applicants do not also serve as recommenders for the same calendar year.")
+        except:
+            pass
+        try:
+            if user:
+                raise forms.ValidationError("We already have an account registered for this email address!") 
+        except:
+            pass
+        return self.data['email']
+
                     
 
 
@@ -39,22 +51,22 @@ class CreateAccountForm(Form):
 
 class ProfileForm(Form):
     first_name = CharField(required=True)
-    last_name = CharField(required=True)    
-    email = CharField(required=True)
-    city = CharField(required=True)
-    state = CharField(required=True)
+    last_name = CharField(required=True)
+    city = CharField(required=False)
+    state = CharField(required=False)
     country = ChoiceField(required=False, choices=places)
-    zipcode = CharField(required=True)
-    dob = CharField(required=True)
-    phone = CharField(required=True)
+    zipcode = CharField(required=False)
+    dob = CharField(required=False)
+    phone = CharField(required=False)
     languages = CharField(required=False, widget=forms.Textarea)
     communities = CharField(required=False, widget=forms.Textarea)
     working_now = CharField(required=False, widget=forms.Textarea)
     school_now = CharField(required=False, widget=forms.Textarea)
     time_commitment = CharField(required=False, widget=forms.Textarea)
-    past_applicant = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=True)
+    past_applicant = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
     referral = CharField(required=False, widget=forms.Textarea)
-    
+
+
 
 class TechForm(Form):
     tech1b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
@@ -103,16 +115,44 @@ class ShortAnswersForm(Form):
 class RecommendersForm(Form):
     rec1firstname = CharField(required=True)
     rec1lastname = CharField(required=True)
-    rec1email = CharField(required=True)
+    rec1email = EmailField(required=True)
     rec1relationship = CharField(required=True)
     rec2firstname = CharField(required=True)
     rec2lastname = CharField(required=True)
-    rec2email = CharField(required=True)
+    rec2email = EmailField(required=True)
     rec2relationship = CharField(required=True)
     rec3firstname = CharField(required=True)
     rec3lastname = CharField(required=True)
-    rec3email = CharField(required=True)
+    rec3email = EmailField(required=True)
     rec3relationship = CharField(required=True)
+
+    def clean_rec1email(self):
+        if self.data['rec1email'] == self.data['rec2email'] or self.data['rec1email'] == self.data['rec3email']:
+            raise forms.ValidationError("Please give us a different email address for each recommender.")
+        user = User.objects.filter(email = self.data['rec1email']).first()
+        applicant = Applicant.objects.filter(user = user).first()
+        if applicant:
+            raise forms.ValidationError("This email address is already associated with an applicant's account. We ask that applicants do not serve as recommenders for the fellowship application.")
+        return self.data['rec1email']
+
+
+    def clean_rec2email(self):
+        if self.data['rec2email'] == self.data['rec3email']:
+            raise forms.ValidationError("Please give us a different email address for each recommender.")
+        user = User.objects.filter(email = self.data['rec2email']).first()
+        applicant = Applicant.objects.filter(user = user).first()
+        if applicant:
+            raise forms.ValidationError("This email address is already associated with an applicant's account. We ask that applicants do not serve as recommenders for the fellowship application.")
+        return self.data['rec2email']
+
+
+    def clean_rec3email(self):
+        user = User.objects.filter(email = self.data['rec3email']).first()
+        applicant = Applicant.objects.filter(user = user).first()
+        if applicant:
+            raise forms.ValidationError("This email address is already associated with an applicant's account. We ask that applicants do not serve as recommenders for the fellowship application.")
+        return self.data['rec3email']
+
 
 
 class RecommendationForm(Form):
