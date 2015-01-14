@@ -78,7 +78,7 @@ def reset_password(request):
             new_password = form.cleaned_data.get('password')
             user.set_password(new_password)
             user.save()
-            forgot_password(user.id)
+            password_sent(user.id, new_password)
             return HttpResponseRedirect(reverse('index'))
     else:
         form = ResetPasswordForm()
