@@ -124,6 +124,7 @@ def createaccount(request):
         if form.is_valid():
             username = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
+            retype_password = form.cleaned_data.get('retype_password')
             email = username
             user = User.objects.create_user(username, email, password)
             user.first_name = form.cleaned_data.get('first_name')

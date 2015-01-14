@@ -46,6 +46,10 @@ body {
   background-color: #21204A;
   }
 
+.alert .alert-error {
+  color: #21204A;
+}
+
 h1, h2, h3, h4, h5, a, label, b, strong {
   color: #21204A;
 }

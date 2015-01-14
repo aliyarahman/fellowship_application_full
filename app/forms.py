@@ -26,6 +26,16 @@ class CreateAccountForm(Form):
     password = CharField(widget=PasswordInput(), required=True)
     retype_password = CharField(widget=PasswordInput(), required=True)
 
+    def clean_password(self):
+        if self.data['password'] != self.data['retype_password']:
+            raise forms.ValidationError("The two passwords you typed don't quite match!")
+        if len(self.data['password'])<8:
+            raise forms.ValidationError("Please enter a password that's at least 8 characters long.")
+        return self.data['password']
+                    
+
+
+
 
 class ProfileForm(Form):
     first_name = CharField(required=True)
@@ -148,6 +158,14 @@ class ForgotPasswordForm(Form):
 class ResetPasswordForm(Form):
     password = CharField(widget=PasswordInput(), required=True)
     password_confirmation = CharField(widget=PasswordInput(), required=True)
+
+    def clean_password(self):
+        if self.data['password'] != self.data['password_confirmation']:
+            raise forms.ValidationError("The two passwords you typed don't quite match!")
+        if len(self.data['password'])<8:
+            raise forms.ValidationError("Please enter a password that's at least 8 characters long.")
+        return self.data['password']
+
 
 
 class AssignEvaluatorForm(Form):
