@@ -56,7 +56,7 @@ class ProfileForm(Form):
     working_now = CharField(required=False, widget=forms.Textarea)
     school_now = CharField(required=False, widget=forms.Textarea)
     time_commitment = CharField(required=False, widget=forms.Textarea)
-    past_applicant = ChoiceField(choices=(('','Select...'),('1', 'No'),('2', 'Yes')), required=False)
+    past_applicant = ChoiceField(choices=(('0','Select...'),('1', 'No'),('2', 'Yes')), required=False)
     referral = CharField(required=False, widget=forms.Textarea)
 
 
