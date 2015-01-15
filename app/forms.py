@@ -178,10 +178,29 @@ class EvaluationForm(Form):
 
 
 class EditRecommenderForm(Form):
+    def __init__(self, *args, **kwargs):
+            self.request = kwargs.pop("request")
+            super(EditRecommenderForm, self).__init__(*args, **kwargs)
+
     first_name = CharField(required=True)
     last_name = CharField(required=True)
     email = EmailField(required=True)
     relationship = CharField(required=True)
+
+
+    def clean_email(self):
+        count = 0
+        inputted_rec_user = User.objects.filter(email = self.data['email']).first()
+        registered_applicant = Applicant.objects.filter(user = inputted_rec_user)
+        current_recommendations = self.request.user.applicant.recommendation_set.all()
+        for recommendation in current_recommendations:
+            if recommendation.recommender.user.email==self.data['email']:
+                count+=1
+        if count>0:
+            raise forms.ValidationError("That email address is already being used by another one of your recommenders, or is already on file for this recommender. Please enter a different email address, or return to the previous screen and choose Edit Info if you only want to change this recommender's name or relationship.")
+        if registered_applicant:
+            raise forms.ValidationError("That email address is already being used by an applicant - please choose someone who isn't applying to the fellowship this year.")
+        return self.data['email']
 
 
 class ForgotPasswordForm(Form):

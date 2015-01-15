@@ -344,7 +344,7 @@ def replace_recommender(request, recommender_id):
     applicant = user.applicant
     recommender = Recommender.objects.get(id = recommender_id)
     if request.method == "POST":
-        form = EditRecommenderForm(data=request.POST)
+        form = EditRecommenderForm(data=request.POST, request=request)
         if form.is_valid():
             recommendation = Recommendation.objects.filter(recommender = recommender, applicant = applicant).first()
             recommendation.delete()
@@ -353,11 +353,12 @@ def replace_recommender(request, recommender_id):
             email = form.cleaned_data.get('email')
             relationship = form.cleaned_data.get('relationship')
             add_recommender(email, first_name, last_name, relationship, user.applicant)
-            new_recommender = Recommender.objects.filter(email = email).first()
+            new_rec_user = User.objects.filter(email = email).first()
+            new_recommender = Recommender.objects.filter(user = new_rec_user).first()
             recommendation_request_sent(user.id, new_recommender.id)
             return HttpResponseRedirect(reverse('applicant_index'))
     else:
-        form = EditRecommenderForm()
+        form = EditRecommenderForm(request=request)
     return render(request, "replace_recommender.html", {'form' : form, 'recommender' : recommender})
 
 
@@ -369,7 +370,7 @@ def edit_recommender_info(request, recommender_id):
     user = User.objects.get(id = request.user.id)
     recommender = Recommender.objects.get(id = recommender_id)
     if request.method == "POST":
-        form = EditRecommenderForm(data=request.POST)
+        form = EditRecommenderForm(data=request.POST, request=request)
         if form.is_valid():
             recommender.user.first_name = form.cleaned_data.get('first_name')
             recommender.user.last_name = form.cleaned_data.get('last_name')
@@ -382,7 +383,7 @@ def edit_recommender_info(request, recommender_id):
         recommender_user_info = model_to_dict(recommender.user)
         recommender_info = model_to_dict(recommender)
         allinfo = dict(recommender_user_info.items() + recommender_info.items())
-        form = EditRecommenderForm(initial=allinfo)
+        form = EditRecommenderForm(request=request, initial=allinfo)
     return render(request, "edit_recommender_info.html", {'form': form, 'recommender': recommender})
 
 @login_required
