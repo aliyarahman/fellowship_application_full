@@ -23,7 +23,7 @@ class Applicant(models.Model):
     school_now = models.TextField(null=True, blank=True)
     time_commitment = models.TextField(null=True, blank=True)
     past_applicant = models.IntegerField(null=True, blank=True)
-    referral = models.CharField(max_length=45, null=True, blank=True)
+    referral = models.TextField(null=True, blank=True)
 
     #  Tech responses
     tech1b = models.IntegerField(null=True, blank=True)
@@ -100,7 +100,7 @@ class Applicant(models.Model):
         return False
 
     def tech_questions_complete(self):
-        if self.tech1b and self.tech2b and self.tech3b and self.tech4b and self.tech5b and self.tech6b and self.tech7b and self.tech8b and self.tech9b and self.tech10b and self.tech11b and self.tech12b and self.tech13b and self.tech14b and self.tech15b and self.tech16b and self.tech1s and self.tech2s and self.tech3s and self.tech1c and self.tech2c and self.tech3c and self.tech4c and self.tech5c:
+        if self.tech1b and self.tech2b and self.tech3b and self.tech4b and self.tech5b and self.tech6b and self.tech7b and self.tech8b and self.tech9b and self.tech10b and self.tech11b and self.tech12b and self.tech13b and self.tech14b and self.tech15b and self.tech16b:
             return True
         return False
 

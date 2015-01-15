@@ -7,10 +7,12 @@
 <form class="form-horizontal" name="form" action="" method="post">
 {% csrf_token %}
 
-<h1 class="nopadding">Tell us how you use technology.</h1>
+<h1 class="nopadding">Tell us how you think.</h1>
 <hr class="form">
     
-    <p>We'd like to know how you're thinking about the role of this program in your personal, work, and community life. </p>
+    <p>We'd like to know how you're thinking about the role of this program in your personal, work, and community life.</p>
+
+    <p>Please complete the questions below. We don't intend for your answers to be essay length, and in fact we feel that a good answer does not need to be longer than three sentences (the ability to give brief explanations is an important skill in coding), but we've left you space to write as much as you'd like. All questions are required unless marked "optional."</p>
 
 
         <br><br><br>
@@ -62,7 +64,7 @@
         <br><br><br>
 
         <div class="form-group"><!-- S -->
-          <div class="col-sm-10 left">6. If accepted as a Fellow, who is someone you will ask to mentor you, and why? (This can be someone in your personal, work, or community life - but it should be a person you might actually ask. </div><br><br><br>
+          <div class="col-sm-10 left">6. If accepted as a Fellow, who is someone you will ask to mentor you, and why? (This can be someone in your personal, work, or community life - but it should be a person you might actually ask). </div><br><br><br>
           <div class="col-sm-10">
           {% render_field form.shortanswer6 class+="form-control" %}
           </div>
@@ -114,7 +116,7 @@
         <br><br><br>
 
         <div class="form-group"><!-- S -->
-          <div class="col-sm-10 left">11. (Use your answer to question 9 for this question). If you could make an app, computer program, or computer system for giving people information that might help to solve the problem, what would it let people do? You don't have to know how we could make it - just describe how someone would use it.</div>
+          <div class="col-sm-10 left">11. (Use your answer to question 10 for this question). If you could make an app, computer program, or computer system for giving people information that might help to solve the problem, what would it let people do? You don't have to know how we could make it - just describe how someone would use it.</div>
           <div class="col-sm-10"><br>
           {% render_field form.shortanswer11 class+="form-control" %}
           </div>
@@ -141,7 +143,7 @@
         <br><br><br>
 
         <div class="form-group"><!-- S -->
-          <div class="col-sm-10 left">14.  Is there anything else you'd like us to know about you?</div><br><br>
+          <div class="col-sm-10 left">14.  Is there anything else you'd like us to know about you? <b>(optional)</b></div><br><br>
           <div class="col-sm-10">
           {% render_field form.anything_else class+="form-control" %}
           </div>

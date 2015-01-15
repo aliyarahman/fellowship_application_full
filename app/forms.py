@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import CharField, Form, PasswordInput, IntegerField, ChoiceField, BooleanField, FileField, Textarea, RadioSelect, EmailField, DateField, FileField
 from django.contrib.auth.models import User
-from app.models import User, Applicant, Recommendation, Evaluation
+from app.models import User, Applicant, Recommender, Recommendation, Evaluation
 from django.forms.extras.widgets import SelectDateWidget
 from django_countries.fields import CountryField
 from django_countries import countries
@@ -16,11 +16,11 @@ for c in countries:
 
 
 class CreateAccountForm(Form):
-    first_name = CharField(required=True)
-    last_name = CharField(required=True)
-    email = EmailField(required=True)
-    password = CharField(widget=PasswordInput(), required=True)
-    retype_password = CharField(widget=PasswordInput(), required=True)
+    first_name = CharField(required=True, max_length=45)
+    last_name = CharField(required=True, max_length=45)
+    email = EmailField(required=True, max_length=45)
+    password = CharField(widget=PasswordInput(), required=True, max_length=45)
+    retype_password = CharField(widget=PasswordInput(), required=True, max_length=45)
 
     def clean_password(self):
         if self.data['password'] != self.data['retype_password']:
@@ -31,33 +31,26 @@ class CreateAccountForm(Form):
 
     def clean_email(self):
         email = self.data['email']
-        user = User.objects.filter(email = email).first()
-        try:
-            if user.recommender:
-                raise forms.ValidationError("This email address is already associated with a recommender's account. We ask that applicants do not also serve as recommenders for the same calendar year.")
-        except:
-            pass
-        try:
-            if user:
-                raise forms.ValidationError("We already have an account registered for this email address!") 
-        except:
-            pass
+        user = User.objects.filter(username = email).first()
+        recommender = Recommender.objects.filter(user = user).first()
+        applicant = Applicant.objects.filter(user = user).first()
+        if recommender:
+            raise forms.ValidationError("This email address is already associated with a recommender's account. We ask that applicants do not also serve as recommenders for the same calendar year.")
+        if applicant:
+            raise forms.ValidationError("We already have an account registered for this email address!") 
         return self.data['email']
-
-                    
-
 
 
 
 class ProfileForm(Form):
-    first_name = CharField(required=True)
-    last_name = CharField(required=True)
-    city = CharField(required=False)
-    state = CharField(required=False)
+    first_name = CharField(required=True, max_length=45)
+    last_name = CharField(required=True, max_length=45)
+    city = CharField(required=False, max_length=45)
+    state = CharField(required=False, max_length=45)
     country = ChoiceField(required=False, choices=places)
-    zipcode = CharField(required=False)
-    dob = CharField(required=False)
-    phone = CharField(required=False)
+    zipcode = CharField(required=False, max_length=10)
+    dob = CharField(required=False, max_length=15)
+    phone = CharField(required=False, max_length=15)
     languages = CharField(required=False, widget=forms.Textarea)
     communities = CharField(required=False, widget=forms.Textarea)
     working_now = CharField(required=False, widget=forms.Textarea)
@@ -69,30 +62,30 @@ class ProfileForm(Form):
 
 
 class TechForm(Form):
-    tech1b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech2b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech3b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech4b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech5b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech6b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech7b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech8b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech9b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech10b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech11b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech12b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech13b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech14b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech15b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech16b = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech1s = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech2s = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech3s = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech1c = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech2c = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech3c = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech4c = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
-    tech5c = ChoiceField(required=True, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech1b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech2b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech4b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech5b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech6b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech7b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech8b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech9b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech10b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech11b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech12b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech13b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech14b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech15b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech16b = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech1s = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech2s = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3s = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech1c = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech2c = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech3c = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech4c = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
+    tech5c = ChoiceField(required=False, choices=(('','Select...'),('1', '1'),('2', '2'),('3', '3'),('4', '4'), ('5', '5')))
 
 
 class ShortAnswersForm(Form):
@@ -113,18 +106,18 @@ class ShortAnswersForm(Form):
 
 
 class RecommendersForm(Form):
-    rec1firstname = CharField(required=True)
-    rec1lastname = CharField(required=True)
-    rec1email = EmailField(required=True)
-    rec1relationship = CharField(required=True)
-    rec2firstname = CharField(required=True)
-    rec2lastname = CharField(required=True)
-    rec2email = EmailField(required=True)
-    rec2relationship = CharField(required=True)
-    rec3firstname = CharField(required=True)
-    rec3lastname = CharField(required=True)
-    rec3email = EmailField(required=True)
-    rec3relationship = CharField(required=True)
+    rec1firstname = CharField(required=False, max_length=45)
+    rec1lastname = CharField(required=False, max_length=45)
+    rec1email = EmailField(required=False, max_length=45)
+    rec1relationship = CharField(max_length=140, required=False)
+    rec2firstname = CharField(required=False, max_length=45)
+    rec2lastname = CharField(required=False, max_length=45)
+    rec2email = EmailField(required=False, max_length=45)
+    rec2relationship = CharField(max_length=140, required=False)
+    rec3firstname = CharField(required=False, max_length=45)
+    rec3lastname = CharField(required=False, max_length=45)
+    rec3email = EmailField(required=False, max_length=45)
+    rec3relationship = CharField(max_length=140, required=False)
 
     def clean_rec1email(self):
         if self.data['rec1email'] == self.data['rec2email'] or self.data['rec1email'] == self.data['rec3email']:
@@ -157,17 +150,17 @@ class RecommendersForm(Form):
 
 class RecommendationForm(Form):
     known_applicant = CharField(widget=Textarea(), required=False)
-    commitment_to_justice_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    commitment_to_justice_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     commitment_to_justice = CharField(widget=Textarea(), required=False)
-    problem_solving_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    problem_solving_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     problem_solving = CharField(widget=Textarea(), required=False)
-    obstacles_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    obstacles_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     obstacles = CharField(widget=Textarea(), required=False)
-    teaching_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    teaching_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     teaching = CharField(widget=Textarea(), required=False)
-    curiosity_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    curiosity_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     curiosity = CharField(widget=Textarea(), required=False)
-    help_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=True)
+    help_rating = ChoiceField(choices=(('','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     help = CharField(widget=Textarea(), required=False)
     accommodations = CharField(widget=Textarea(), required=False)
     support = CharField(widget=Textarea(), required=False)
