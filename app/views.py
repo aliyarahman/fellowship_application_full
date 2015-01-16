@@ -400,7 +400,7 @@ def send_recommender_reminder(request, recommender_id):
     applicant = user.applicant
     recommender = Recommender.objects.get(id = recommender_id)
     if request.method == "POST":
-        recommendation_requested(user.id, recommender.id)
+        recommendation_requested_existing_recommender(user.id, recommender.id)
         recommendation_request_sent(user.id, recommender.id)
         return HttpResponseRedirect(reverse('reminder_sent'))
     return render(request, "send_recommender_reminder.html", {'recommender': recommender})
