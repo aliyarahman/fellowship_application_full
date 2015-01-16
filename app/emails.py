@@ -59,5 +59,5 @@ def recommendation_received(applicant_id, recommender_id):
     recommender = Recommender.objects.get(id = recommender_id)
     subject = "We've received your recommendation for "+applicant.user.first_name+" "+applicant.user.last_name
     signature = "\n\n\nThe Code for Progress team\n\n\nCode for Progress\nwww.codeforprogress.org\n(202) 817-2633\n\n1220 L Street NW, Suite 100-513\nWashington, DC 20005"
-    body_text = "Hi "+recommender.user.first_name+",\n\n"+"We've just received your recommendation for "+applicant.user.first_name+" "+applicant.user.last_name+".We'll be notifying them of our decision in late March.\n\n\Thanks for supporting a Code for Progress applicant!"+signature
+    body_text = "Hi "+recommender.user.first_name+",\n\n"+"We've just received your recommendation for "+applicant.user.first_name+" "+applicant.user.last_name+".We'll be notifying them of our decision in late March.\n\nThanks for supporting a Code for Progress applicant!"+signature
     send_mail(subject, body_text, 'Aliya Rahman, Code for Progress', [recommender.user.email], fail_silently=False)
