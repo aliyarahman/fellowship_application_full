@@ -16,9 +16,9 @@ for c in countries:
 
 
 class CreateAccountForm(Form):
-    first_name = CharField(required=True, max_length=45)
-    last_name = CharField(required=True, max_length=45)
-    email = EmailField(required=True, max_length=45)
+    first_name = CharField(required=True, max_length=30)
+    last_name = CharField(required=True, max_length=30)
+    email = EmailField(required=True, max_length=30)
     password = CharField(widget=PasswordInput(), required=True, max_length=45)
     retype_password = CharField(widget=PasswordInput(), required=True, max_length=45)
 
@@ -48,7 +48,7 @@ class ProfileForm(Form):
     city = CharField(required=False, max_length=45)
     state = CharField(required=False, max_length=45)
     country = ChoiceField(required=False, choices=places)
-    zipcode = CharField(required=False, max_length=10)
+    zipcode = CharField(required=False, max_length=5)
     dob = CharField(required=False, max_length=15)
     phone = CharField(required=False, max_length=15)
     languages = CharField(required=False, widget=forms.Textarea)
@@ -59,6 +59,23 @@ class ProfileForm(Form):
     past_applicant = ChoiceField(choices=(('0','Select...'),('1', 'No'),('2', 'Yes')), required=False)
     referral = CharField(required=False, widget=forms.Textarea)
 
+    def clean_dob(self):
+        for char in self.data['dob']:
+            if char.isalpha():
+                raise forms.ValidationError('Please enter your date of birth using only numbers and the "-" or "/" characters.')
+        return self.data['dob']
+
+    def clean_zipcode(self):
+        for char in self.data['zipcode']:
+            if not char.isnumeric():
+                raise forms.ValidationError("Please enter a zipcode that contains only numbers.")
+        return self.data['zipcode']
+
+    def clean_phone(self):
+        for char in self.data['phone']:
+            if char.isalpha():
+                raise forms.ValidationError("Please enter a phone number that does not contain letters.")
+        return self.data['phone']
 
 
 class TechForm(Form):
@@ -120,7 +137,7 @@ class RecommendersForm(Form):
     rec3relationship = CharField(max_length=140, required=False)
 
     def clean_rec1email(self):
-        if self.data['rec1email'] == self.data['rec2email'] or self.data['rec1email'] == self.data['rec3email']:
+        if (self.data['rec1email'] == self.data['rec2email'] and len(self.data['rec1email'])>0 and len(self.data['rec2email'])>0) or (self.data['rec1email'] == self.data['rec3email'] and len(self.data['rec1email'])>0 and len(self.data['rec3email'])>0):
             raise forms.ValidationError("Please give us a different email address for each recommender.")
         user = User.objects.filter(email = self.data['rec1email']).first()
         applicant = Applicant.objects.filter(user = user).first()
@@ -130,7 +147,7 @@ class RecommendersForm(Form):
 
 
     def clean_rec2email(self):
-        if self.data['rec2email'] == self.data['rec3email']:
+        if (self.data['rec2email'] == self.data['rec3email'] and len(self.data['rec2email'])>0 and len(self.data['rec3email'])>0):
             raise forms.ValidationError("Please give us a different email address for each recommender.")
         user = User.objects.filter(email = self.data['rec2email']).first()
         applicant = Applicant.objects.filter(user = user).first()

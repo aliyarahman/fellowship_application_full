@@ -14,7 +14,7 @@ class Applicant(models.Model):
     city = models.CharField(max_length=45, null=True, blank=True)
     state = models.CharField(max_length=45, null=True, blank=True)
     country = CountryField(null=True, blank=True)
-    zipcode = models.CharField(max_length=10, null=True, blank=True)
+    zipcode = models.CharField(max_length=5, null=True, blank=True)
     dob = models.CharField(max_length=15, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     languages = models.TextField(null=True, blank=True)
@@ -95,12 +95,12 @@ class Applicant(models.Model):
         return self.user.email
 
     def profile_complete(self):
-        if self.city and self.state and self.country and self.zipcode and self.dob and self.phone and self.languages and self.communities and self.working_now and self.school_now and self.time_commitment and self.past_applicant and self.referral:
+        if self.city and self.state and self.country and self.zipcode and self.dob and self.phone and self.languages and self.communities and self.working_now and self.school_now and self.time_commitment and self.past_applicant>0 and self.referral:
             return True
         return False
 
     def tech_questions_complete(self):
-        if self.tech1b and self.tech2b and self.tech3b and self.tech4b and self.tech5b and self.tech6b and self.tech7b and self.tech8b and self.tech9b and self.tech10b and self.tech11b and self.tech12b and self.tech13b and self.tech14b and self.tech15b and self.tech16b:
+        if self.tech1b>0 and self.tech2b>0 and self.tech3b>0 and self.tech4b>0 and self.tech5b>0 and self.tech6b>0 and self.tech7b>0 and self.tech8b>0 and self.tech9b>0 and self.tech10b>0 and self.tech11b>0 and self.tech12b>0 and self.tech13b>0 and self.tech14b>0 and self.tech15b>0 and self.tech16b>0:
             return True
         return False
 
@@ -141,7 +141,6 @@ class Applicant(models.Model):
 class Recommender(models.Model):
     user = models.OneToOneField(User)
     role = models.IntegerField(default=2)
-    relationship = models.CharField(max_length=140, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
@@ -199,7 +198,7 @@ class Recommendation(models.Model):
         return "Recommendation " + str(self.id)
 
     def is_complete(self):
-        if self.known_applicant and self.commitment_to_justice_rating and self.commitment_to_justice and self.problem_solving_rating and self.problem_solving and self.obstacles_rating and self.obstacles and self.teaching_rating and self.teaching and self.curiosity_rating and self.curiosity and self.help_rating and self.help and self.accommodations and self.support:
+        if self.known_applicant and self.commitment_to_justice_rating>0 and self.commitment_to_justice and self.problem_solving_rating>0 and self.problem_solving and self.obstacles_rating>0 and self.obstacles and self.teaching_rating>0 and self.teaching and self.curiosity_rating>0 and self.curiosity and self.help_rating>0 and self.help and self.accommodations and self.support:
             return True
         return False
 

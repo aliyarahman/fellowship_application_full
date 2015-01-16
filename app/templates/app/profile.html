@@ -51,14 +51,14 @@
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label">Zip</label>
       <div class="col-sm-4">
-      {% render_field form.zipcode class+="form-control" %}
+      {% render_field form.zipcode class+="form-control" placeholder="#####" %}
       </div>
     </div><!-- E --> 
 
     <div class="form-group"><!-- S XXX-->
       <label class="col-sm-4 control-label left">Phone</label>
       <div class="col-sm-4">
-      {% render_field form.phone class+="form-control" %}
+      {% render_field form.phone class+="form-control" placeholder="###-###-####" %}
       </div>
     </div><!-- E --> 
 
@@ -135,7 +135,7 @@
     <div class="form-group"><!-- S -->
       <label for="password" class="col-sm-4 control-label left">Password</label>
       <div class="col-sm-4">
-        <div onClick="location.href='{% url 'reset_password' %}'" class="btn btn-primary">Change password</div>
+        <div>&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; <button onClick="location.href='{% url 'reset_password' %}'" class="btn btn-default">Change password</button></div>
       </div>
     </div><!-- E -->
 

@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 from app.models import Applicant, Evaluator, Recommender, Staff, Recommendation, Evaluation
 from app.forms import ForgotPasswordForm, ResetPasswordForm, CreateAccountForm, ProfileForm, TechForm, ShortAnswersForm, RecommendersForm, EditRecommenderForm, RecommendationForm, EvaluationForm, AssignEvaluatorForm
-from app.emails import application_created, password_sent, application_received, recommendation_requested, recommendation_request_sent, recommendation_received
+from app.emails import application_created, password_sent, application_received, recommendation_requested, recommendation_requested_existing_recommender, recommendation_request_sent, recommendation_received
 from django.core.mail import send_mail
 
 
@@ -313,24 +313,28 @@ def finalsubmission(request):
         applicant = user.applicant
         applicant.application_submitted = 1
         applicant.save()
-        add_recommender(applicant.rec1email, applicant.rec1firstname, applicant.rec1lastname, applicant.rec1relationship, user.applicant)
-        add_recommender(applicant.rec2email, applicant.rec2firstname, applicant.rec2lastname, applicant.rec2relationship, user.applicant)
-        add_recommender(applicant.rec3email, applicant.rec3firstname, applicant.rec3lastname, applicant.rec3relationship, user.applicant)        
+        add_recommender(applicant.rec1email, applicant.rec1firstname, applicant.rec1lastname, user.applicant)
+        add_recommender(applicant.rec2email, applicant.rec2firstname, applicant.rec2lastname, user.applicant)
+        add_recommender(applicant.rec3email, applicant.rec3firstname, applicant.rec3lastname, user.applicant)        
         application_received(user.id)
         return HttpResponseRedirect(reverse('applicant_index'))
     return render(request, 'finalsubmission.html')
 
 
-def add_recommender(email, first_name, last_name, relationship, applicant):
+def add_recommender(email, first_name, last_name, applicant):
     applicant = Applicant.objects.get(id = applicant.id)
     recommender = User.objects.filter(email = email).first()
     if not recommender:
-        recommender = User(username = email, first_name = first_name, last_name = last_name, email = email, password = generate_password())
+        rec_user = User(username = email, first_name = first_name, last_name = last_name, email = email)
+        password = generate_password()
+        rec_user.set_password(password)
+        rec_user.save()
+        recommender = Recommender(user = rec_user, role=2)
         recommender.save()
-    r = Recommender(user = recommender, role=2, relationship=relationship)
-    r.save()
-    recommendation_requested(applicant.user.id, r.id)
-    recommendation = Recommendation(applicant = applicant, recommender = r)
+        recommendation_requested(applicant.user.id, recommender.id, password)
+    else:
+        recommendation_requested_existing_recommender(applicant.user.id, recommender.id)
+    recommendation = Recommendation(applicant = applicant, recommender = recommender)
     recommendation.save()
 
 
@@ -352,10 +356,10 @@ def replace_recommender(request, recommender_id):
             last_name = form.cleaned_data.get('last_name')
             email = form.cleaned_data.get('email')
             relationship = form.cleaned_data.get('relationship')
-            add_recommender(email, first_name, last_name, relationship, user.applicant)
+            add_recommender(email, first_name, last_name, user.applicant)
             new_rec_user = User.objects.filter(email = email).first()
             new_recommender = Recommender.objects.filter(user = new_rec_user).first()
-            recommendation_request_sent(user.id, new_recommender.id)
+            recommendation_request_sent(user.id, new_recommender.id,)
             return HttpResponseRedirect(reverse('applicant_index'))
     else:
         form = EditRecommenderForm(request=request)
