@@ -16,11 +16,11 @@ for c in countries:
 
 
 class CreateAccountForm(Form):
-    first_name = CharField(required=True, max_length=30)
-    last_name = CharField(required=True, max_length=30)
-    email = EmailField(required=True, max_length=30)
-    password = CharField(widget=PasswordInput(), required=True, max_length=45)
-    retype_password = CharField(widget=PasswordInput(), required=True, max_length=45)
+    first_name = CharField(required=True, max_length=30, label="First name(s)")
+    last_name = CharField(required=True, max_length=30, label = "Last name(s)")
+    email = EmailField(required=True, max_length=30, label = "Email")
+    password = CharField(widget=PasswordInput(), required=True, max_length=45, label = "Password")
+    retype_password = CharField(widget=PasswordInput(), required=True, max_length=45, label = "Retype password")
 
     def clean_password(self):
         if self.data['password'] != self.data['retype_password']:
@@ -43,8 +43,8 @@ class CreateAccountForm(Form):
 
 
 class ProfileForm(Form):
-    first_name = CharField(required=True, max_length=45)
-    last_name = CharField(required=True, max_length=45)
+    first_name = CharField(required=True, max_length=45, label = "First name(s)")
+    last_name = CharField(required=True, max_length=45, label = "Last name(s)")
     city = CharField(required=False, max_length=45)
     state = CharField(required=False, max_length=45)
     country = ChoiceField(required=False, choices=places)
@@ -123,18 +123,18 @@ class ShortAnswersForm(Form):
 
 
 class RecommendersForm(Form):
-    rec1firstname = CharField(required=False, max_length=45)
-    rec1lastname = CharField(required=False, max_length=45)
-    rec1email = EmailField(required=False, max_length=45)
-    rec1relationship = CharField(max_length=140, required=False)
-    rec2firstname = CharField(required=False, max_length=45)
-    rec2lastname = CharField(required=False, max_length=45)
-    rec2email = EmailField(required=False, max_length=45)
-    rec2relationship = CharField(max_length=140, required=False)
-    rec3firstname = CharField(required=False, max_length=45)
-    rec3lastname = CharField(required=False, max_length=45)
-    rec3email = EmailField(required=False, max_length=45)
-    rec3relationship = CharField(max_length=140, required=False)
+    rec1firstname = CharField(required=False, max_length=45, label="First recommender's first name(s)")
+    rec1lastname = CharField(required=False, max_length=45, label="First recommender's last name(s)")
+    rec1email = EmailField(required=False, max_length=45, label="First recommender's email address")
+    rec1relationship = CharField(max_length=140, required=False, label="How do you know your first recommender?")
+    rec2firstname = CharField(required=False, max_length=45, label="Second recommender's first name(s)")
+    rec2lastname = CharField(required=False, max_length=45, label="Second recommender's last name(s)")
+    rec2email = EmailField(required=False, max_length=45, label="Second recommender's email address")
+    rec2relationship = CharField(max_length=140, required=False, label="How do you know your second recommender?")
+    rec3firstname = CharField(required=False, max_length=45, label="Third recommender's first name(s)")
+    rec3lastname = CharField(required=False, max_length=45, label="Third recommender's last name(s)")
+    rec3email = EmailField(required=False, max_length=45, label="Third recommender's email address")
+    rec3relationship = CharField(max_length=140, required=False, label="How do you know your third recommender?")
 
     def clean_rec1email(self):
         if (self.data['rec1email'] == self.data['rec2email'] and len(self.data['rec1email'])>0 and len(self.data['rec2email'])>0) or (self.data['rec1email'] == self.data['rec3email'] and len(self.data['rec1email'])>0 and len(self.data['rec3email'])>0):
@@ -191,7 +191,7 @@ class EvaluationForm(Form):
     criteria_4_rating = ChoiceField(widget=RadioSelect, choices=(('0','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     criteria_5_rating = ChoiceField(widget=RadioSelect, choices=(('0','Select...'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5')), required=False)
     notes = CharField(required=False, widget=Textarea())
-    recommend = ChoiceField(choices=(('0','Select...'),('1', 'No'),('2', 'Yes')), required=True)
+    recommend = ChoiceField(choices=(('0','Select...'),('1', 'No'),('2', 'Yes')), required=True, label="Overal recommendation")
 
 
 class EditRecommenderForm(Form):
@@ -199,10 +199,10 @@ class EditRecommenderForm(Form):
             self.request = kwargs.pop("request")
             super(EditRecommenderForm, self).__init__(*args, **kwargs)
 
-    first_name = CharField(required=True)
-    last_name = CharField(required=True)
-    email = EmailField(required=True)
-    relationship = CharField(required=True)
+    first_name = CharField(required=True, label="First name(s)")
+    last_name = CharField(required=True, label="Last name(s)")
+    email = EmailField(required=True, label = "Email")
+    relationship = CharField(required=True, label="How do you know this recommender?")
 
 
     def clean_email(self):
@@ -221,12 +221,12 @@ class EditRecommenderForm(Form):
 
 
 class ForgotPasswordForm(Form):
-    email = EmailField(required=True)
+    email = EmailField(required=True, label="Email")
 
 
 class ResetPasswordForm(Form):
-    password = CharField(widget=PasswordInput(), required=True)
-    password_confirmation = CharField(widget=PasswordInput(), required=True)
+    password = CharField(widget=PasswordInput(), required=True, label="Password")
+    password_confirmation = CharField(widget=PasswordInput(), required=True, label="Retype password")
 
     def clean_password(self):
         if self.data['password'] != self.data['password_confirmation']:
@@ -238,4 +238,4 @@ class ResetPasswordForm(Form):
 
 
 class AssignEvaluatorForm(Form):
-    evaluator_email = EmailField(required=True)
+    evaluator_email = EmailField(required=True, label="Evaluator's email address")
