@@ -72,15 +72,15 @@ class Applicant(models.Model):
     # Recommender info
     rec1firstname = models.CharField(max_length=30, null=True, blank=True)
     rec1lastname = models.CharField(max_length=30, null=True, blank=True)
-    rec1email = models.CharField(max_length=30, null=True, blank=True)
+    rec1email = models.CharField(max_length=75, null=True, blank=True)
     rec1relationship = models.CharField(max_length=140, null=True, blank=True)
     rec2firstname = models.CharField(max_length=30, null=True, blank=True)
     rec2lastname = models.CharField(max_length=30, null=True, blank=True)
-    rec2email = models.CharField(max_length=30, null=True, blank=True)
+    rec2email = models.CharField(max_length=75, null=True, blank=True)
     rec2relationship = models.CharField(max_length=140, null=True, blank=True)
     rec3firstname = models.CharField(max_length=30, null=True, blank=True)
     rec3lastname = models.CharField(max_length=30, null=True, blank=True)
-    rec3email = models.CharField(max_length=30, null=True, blank=True)
+    rec3email = models.CharField(max_length=75, null=True, blank=True)
     rec3relationship = models.CharField(max_length=140, null=True, blank=True)
 
     application_submitted = models.IntegerField(default = 0)

@@ -18,7 +18,7 @@ for c in countries:
 class CreateAccountForm(Form):
     first_name = CharField(required=True, max_length=30, label="First name(s)")
     last_name = CharField(required=True, max_length=30, label = "Last name(s)")
-    email = EmailField(required=True, max_length=30, label = "Email")
+    email = EmailField(required=True, max_length=75, label = "Email")
     password = CharField(widget=PasswordInput(), required=True, max_length=45, label = "Password")
     retype_password = CharField(widget=PasswordInput(), required=True, max_length=45, label = "Retype password")
 
@@ -125,15 +125,15 @@ class ShortAnswersForm(Form):
 class RecommendersForm(Form):
     rec1firstname = CharField(required=False, max_length=30, label="First recommender's first name(s)")
     rec1lastname = CharField(required=False, max_length=30, label="First recommender's last name(s)")
-    rec1email = EmailField(required=False, max_length=30, label="First recommender's email address")
+    rec1email = EmailField(required=False, max_length=75, label="First recommender's email address")
     rec1relationship = CharField(max_length=140, required=False, label="How do you know your first recommender?")
     rec2firstname = CharField(required=False, max_length=30, label="Second recommender's first name(s)")
     rec2lastname = CharField(required=False, max_length=30, label="Second recommender's last name(s)")
-    rec2email = EmailField(required=False, max_length=30, label="Second recommender's email address")
+    rec2email = EmailField(required=False, max_length=75, label="Second recommender's email address")
     rec2relationship = CharField(max_length=140, required=False, label="How do you know your second recommender?")
     rec3firstname = CharField(required=False, max_length=30, label="Third recommender's first name(s)")
     rec3lastname = CharField(required=False, max_length=30, label="Third recommender's last name(s)")
-    rec3email = EmailField(required=False, max_length=30, label="Third recommender's email address")
+    rec3email = EmailField(required=False, max_length=75, label="Third recommender's email address")
     rec3relationship = CharField(max_length=140, required=False, label="How do you know your third recommender?")
 
     def clean_rec1email(self):
@@ -199,9 +199,9 @@ class EditRecommenderForm(Form):
             self.request = kwargs.pop("request")
             super(EditRecommenderForm, self).__init__(*args, **kwargs)
 
-    first_name = CharField(required=True, label="First name(s)")
-    last_name = CharField(required=True, label="Last name(s)")
-    email = EmailField(required=True, label = "Email")
+    first_name = CharField(required=True, max_length=30, label="First name(s)")
+    last_name = CharField(required=True, max_length=30, label="Last name(s)")
+    email = EmailField(required=True, max_length=75, label = "Email")
     relationship = CharField(required=True, label="How do you know this recommender?")
 
 
