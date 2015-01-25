@@ -31,7 +31,11 @@ class CreateAccountForm(Form):
 
     def clean_email(self):
         email = self.data['email']
-        user = User.objects.filter(username = email).first()
+        if len(email)>30:
+            username = email[0:30]
+        else:
+            username = email
+        user = User.objects.filter(username = username).first()
         recommender = Recommender.objects.filter(user = user).first()
         applicant = Applicant.objects.filter(user = user).first()
         if recommender:

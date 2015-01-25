@@ -122,10 +122,13 @@ def createaccount(request):
     if request.method == 'POST':
         form = CreateAccountForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('email')
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             retype_password = form.cleaned_data.get('retype_password')
-            email = username
+            if len(email)>30:
+                username = email[0:30]
+            else:
+                username = email
             user = User.objects.create_user(username, email, password)
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
@@ -325,7 +328,11 @@ def add_recommender(email, first_name, last_name, applicant):
     applicant = Applicant.objects.get(id = applicant.id)
     recommender = User.objects.filter(email = email).first()
     if not recommender:
-        rec_user = User(username = email, first_name = first_name, last_name = last_name, email = email)
+        if len(email)>30:
+            username = email[0:30]
+        else:
+            username = email
+        rec_user = User(username = username, first_name = first_name, last_name = last_name, email = email)
         password = generate_password()
         rec_user.set_password(password)
         rec_user.save()
