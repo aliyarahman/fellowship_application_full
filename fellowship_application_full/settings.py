@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'app',
     'widget_tweaks',
     'django_countries',
+    'localflavor',
 )
 
 MIDDLEWARE_CLASSES = (
