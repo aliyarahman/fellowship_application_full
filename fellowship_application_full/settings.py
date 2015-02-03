@@ -92,7 +92,7 @@ TEMPLATE_DIRS = (
 )
 
 
-LOGIN_URL = 'django.contrib.auth.views.login'
+LOGIN_URL = 'login_view'
 LOGIN_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = 'auth.User'
